@@ -1,5 +1,9 @@
 # lezhin_comics_crawler
 
+※ 이 크롤러를 사용하려면 아래의 조건이 필요함
+1. Python 3.8.0
+2. requests 모듈 설치
+
 레진코믹스의 cdn 구조는
 
 http://cdn.lezhin.com/episodes/만화이름/회차수/contents/사진번호?access_token=토큰값 // 만화 이미지에 접근
