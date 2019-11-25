@@ -3,6 +3,7 @@ import json
 import urllib.request
 import os
 import shutil
+from img2pdf import convert
 
 print('Welcome to Lezhin Comics Crawler')
 print("※ 2017년 3월 10일 이후에 나온 만화는 다운로드가 불가합니다")
