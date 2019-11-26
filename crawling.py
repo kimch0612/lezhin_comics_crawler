@@ -1,3 +1,8 @@
+"""
+programmed by GreenF
+(c) 2019. GreenF. All rights reserved
+"""
+
 from requests import get
 import json
 import urllib.request
@@ -25,7 +30,7 @@ try:
 except:
     pass
 
-print("만화 정보를 다운로드 중입니다...")
+print("만화 정보를 다운로드 중입니다...", end="")
 for y in range(int(sgw[0]), int(sgw[1])+1):
     def download(url, file_name):
         with open(file_name, "wb") as file:
@@ -34,6 +39,7 @@ for y in range(int(sgw[0]), int(sgw[1])+1):
     if __name__ == '__main__':
         url = "http://cdn.lezhin.com/episodes/%s/%s.json?access_token=%s" % (name, y, token)
         download(url, "%s\\temp\\%s.json" % (name, y))
+print("완료")
 
 for a in range(int(sgw[0]), int(sgw[1])+1):
     os.chdir(name)
@@ -51,12 +57,13 @@ for a in range(int(sgw[0]), int(sgw[1])+1):
 
     home = str(a) + "화"
     for i in range(1, cut+1):
-        print('%s번째 이미지 중'%(cut) + " %s"%(i) + ' 번째 이미지 다운로드 중...')
+        print('%s번째 이미지 중'%(cut) + " %s"%(i) + ' 번째 이미지 다운로드 중...', end='')
         urllib.request.urlretrieve("http://cdn.lezhin.com/episodes/%s/%s/contents/%s?access_token=%s"%(name, a, i, token), "%s화\\%s.png"%(a, i))
+        print("완료")
     print('%s화 다운로드 완료.'%(a))
 
     dir = "%s화"%(a)
-    print("pdf 변환 중...")
+    print("pdf 변환 중...", end='')
     prefix = ""
     min_range = 1
     max_range = cut
@@ -74,6 +81,7 @@ for a in range(int(sgw[0]), int(sgw[1])+1):
     os.chdir('..')
     images[0].save(out_fname, save_all=True, quality=100, append_images=images[1:])
     os.chdir('..')
+    print("완료")
 
 print('임시파일 삭제 중...')
 os.chdir(name)
