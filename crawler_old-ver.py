@@ -92,4 +92,4 @@ for a in range(int(sgw[0]), int(sgw[1])+1):
 print('임시파일 삭제 중...')
 os.chdir(name)
 shutil.rmtree(r"temp")
-print('완료!!')
+print('완료!! 프로그램을 종료합니다.')
