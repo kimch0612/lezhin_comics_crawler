@@ -14,7 +14,7 @@ crawler_old-ver : 2017년 3월 10일 이전에 연재됐던 만화 크롤러
 Windows10 64bit 1909 버전, Python 3.8.0
 
 
-# 17년 3월 10일 이전에 올라온 만화를 크롤링 하는 방법
+# 17년 3월 10일 이전에 올라온 만화
 
 레진코믹스의 cdn 구조는 다음과 같다
 
@@ -30,7 +30,7 @@ http://cdn.lezhin.com/episodes/만화이름?access_token=토큰값 // 해당 만
 위의 방식은 2017년 3월 10일 이후에 올라온 만화나 구입하지 않은 유료 만화의 경우 404 오류가 뜸
 
 
-# 2017년 3월 10일 이후에 올라온 만화를 크롤링 하는 방법
+# 2017년 3월 10일 이후에 올라온 만화
 
 cdn 주소의 구성 방식은 다음과 같다
 https://cdn.lezhin.com/v2/comics/(만화 번호)/episodes/(에피소드 번호)/contents/scrolls/(이미지 번호)?access_token=(토큰 값)
