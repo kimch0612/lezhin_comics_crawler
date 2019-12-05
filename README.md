@@ -33,6 +33,7 @@ http://cdn.lezhin.com/episodes/만화이름?access_token=토큰값 // 해당 만
 # 2017년 3월 10일 이후에 올라온 만화
 
 cdn 주소의 구성 방식은 다음과 같다
+
 https://cdn.lezhin.com/v2/comics/(만화_번호)/episodes/(에피소드_번호)/contents/scrolls/(이미지_번호)?access_token=(토큰_값)
 
 기존과 다르게 만화의 이름과 에피소드의 번호가 암호화가 됐음
