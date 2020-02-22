@@ -24,10 +24,10 @@ https://cdn.lezhin.com/v2/comics/만화_숫자코드/episodes/에피_숫자코�
 """
 
 token = input("레진 계정의 토큰 값을 입력하세요 : ")
+name = input("만화의 영어 이름을 입력하세요 : ")
+name_code = input("만화의 숫자 코드를 입력하세요\n(숫자는 총 16자리입니다) : ")
 
 while True :
-    name = input("만화의 영어 이름을 입력하세요 : ")
-    name_code = input("만화의 숫자 코드를 입력하세요\n(숫자는 총 16자리입니다) : ")
     episode = input("에피소드 회차를 입력하세요\n(ex. 24화라면 24만 입력) : ")
     episode_code = input("에피소드의 숫자 코드를 입력하세요\n(숫자는 총 16자리입니다) : ")
 
