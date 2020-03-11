@@ -21,10 +21,16 @@ https://cdn.lezhin.com/v2/comics/만화_숫자코드/episodes/에피_숫자코�
 """
 
 id = input('레진코믹스 계정의 아이디를 입력하세요 : ')
-pw = input("레진코믹스 계정의 패스워드를 입력하세요 : ")
+pw = getpass.getpass("레진코믹스 계정의 패스워드를 입력하세요 : ")
 token = input('레진 계정의 토큰 값을 입력하세요 : ')
+print('잠시만 기다려주세요..')
 
-driver = webdriver.Chrome('chromedriver.exe')
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('log-level=2')
+chrome_options.add_argument('headless')
+chrome_options.add_argument('window-size=1920x1080')
+chrome_options.add_argument("disable-gpu")
+driver = webdriver.Chrome('chromedriver.exe', chrome_options=chrome_options)
 driver.get('https://www.lezhin.com/ko/login')
 delay = 3
 driver.implicitly_wait(delay)
@@ -67,7 +73,7 @@ while True :
             json_number = json_data["cut"]
             cut = json_number
 
-        print("만화 다운로드 준비 중입니다..")
+        print("만화 다운로드를 준비 중입니다..")
 
         url = 'https://www.lezhin.com/ko/comic/%s/%s' % (name, a)
         driver.get(url)
@@ -78,7 +84,6 @@ while True :
         l = list()
         for img in div_tag.find_all("img"):
             l.append(img.get("src").split("/"))
-        print(l)
         name_code = l[1][5]
         episode_code = l[1][7]
 
@@ -122,3 +127,10 @@ while True :
     shutil.rmtree(r"temp")
     print('완료!!')
     os.chdir('..')
+
+    exi = input("크롤러를 종료할까요? (Y/N) : ")
+    if exi == 'Y':
+        driver.quit()
+        break
+    else:
+        continue
