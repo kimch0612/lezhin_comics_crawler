@@ -89,3 +89,9 @@ while True :
     os.chdir(name)
     shutil.rmtree(r"temp")
     print('완료!!')
+
+    exi = input("크롤러를 종료할까요? (Y/N) : ")
+    if exi == 'Y':
+        break
+    else:
+        continue

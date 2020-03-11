@@ -81,3 +81,9 @@ while True :
     os.chdir('..')
     print("완료")
 
+    exi = input("크롤러를 종료할까요? (Y/N) : ")
+    if exi == 'Y':
+        break
+    else:
+        continue
+
