@@ -3,11 +3,14 @@
 
 ****이 크롤러를 사용하며 발생한 모든 일의 책임은 사용자에게 있습니다****
 
-crawler_new-ver : 2017년 3월 10일 이후에 연재된 만화 크롤러
+crawler_selenium-ver : 2017년 3월 10일 이후에 연재된 만화 크롤러 (* 복수 다운로드 가능)
+
+crawler_new-ver : 2017년 3월 10일 이후에 연재된 만화 크롤러 (* 복수 다운로드 불가능)
 
 crawler_old-ver : 2017년 3월 10일 이전에 연재됐던 만화 크롤러
 
-※ 이 크롤러를 사용하려면 requests, PIL 모듈을 설치해야 함
+
+※ 이 크롤러를 사용하려면 requests, PIL, Selenium(셀레니움 크롤러만 해당) 모듈을 설치해야 함
 
 구동이 확인된 환경
 
@@ -42,4 +45,17 @@ https://cdn.lezhin.com/v2/comics/(만화_번호)/episodes/(에피소드_번호)/
 
 에피소드 번호의 경우에는 최신화라고 해서 무조건 숫자가 큰 것은 아니며 해당 에피소드의 컷 수를 알아내는 방법은 위의 방법과 동일함
 
-이 크롤러로도 17년 3월 10일 이전에 연재된 만화를 다운 받을 수 있지만 일괄로 다운 받기에는 위의 크롤러가 더 편할 것으로 생각 됨
+# 크롤러 사용 방법
+
+crawler_selenium-ver : 해당 크롤러가 있는 경로에 Chrome Driver를 둬야 함
+
+(ex. C:\에 crawler_selenium-ver.py 파일이 있다면 chromedriver.exe 파일도 C:\에 있어야 함)
+
+이후 cmd에서 python crawler_selenium-ver.py 를 입력해주면 실행 됨
+
+※ 크롬 드라이버의 다운로드 및 사용 방법은 검색 바람
+
+
+chawler_old(new)-ver : cmd에서 python chawler_old-ver.py (또는 chawler_new-ver.py) 를 입력해주면 실행 됨
+
+실행 되면 크롤러가 안내하는 대로 따르면 됨
