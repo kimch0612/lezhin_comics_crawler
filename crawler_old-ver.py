@@ -1,15 +1,9 @@
-"""
-Programmed by GreenF
-(c) 2019. GreenF. All rights reserved
-"""
-
 from requests import get
 import json
 import urllib.request
 import os
 import shutil
 from PIL import Image
-import glob
 
 print('Welcome to Lezhin Comics Crawler')
 print("※ 2017년 3월 10일 이후에 나온 만화는 다운로드가 불가합니다")

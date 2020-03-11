@@ -1,8 +1,3 @@
-"""
-programmed by GreenF
-(c) 2019. GreenF. All rights reserved
-"""
-
 from requests import get
 import json
 import urllib.request
