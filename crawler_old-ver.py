@@ -48,30 +48,32 @@ while True :
         with open('temp\\%s.json'%(a), 'rt', encoding='UTF8') as json_file:
             json_data = json.load(json_file)
             json_number = json_data["cut"]
+            json_title = json_data["title"]
+            title = json_title
             cut = json_number
 
         print('-----%s화 다운로드를 시작합니다.-----\n%s화의 총 이미지 수는 %s장입니다.'%(a, a, cut))
 
         try:
-            os.mkdir("%s화"%(a))
+            os.mkdir("%s화 - %s"%(a, title))
         except:
             pass
 
         home = str(a) + "화"
         for i in range(1, cut+1):
             print('%s번째 이미지 중'%(cut) + " %s"%(i) + ' 번째 이미지 다운로드 중...', end='')
-            urllib.request.urlretrieve("http://cdn.lezhin.com/episodes/%s/%s/contents/%s?access_token=%s"%(name, a, i, token), "%s화\\%s.png"%(a, i))
+            urllib.request.urlretrieve("http://cdn.lezhin.com/episodes/%s/%s/contents/%s?access_token=%s"%(name, a, i, token), "%s화 - %s\\%s.png"%(a, title, i))
             print("완료")
         print('%s화 다운로드 완료.'%(a))
 
-        dir = "%s화"%(a)
+        dir = "%s화 - %s"%(a, title)
         print("pdf 생성 중...", end='')
         prefix = ""
         min_range = 1
         max_range = cut
         os.chdir(dir)
         suffix = ".png"
-        out_fname = "%s화.pdf"%(a)
+        out_fname = "%s화 - %s.pdf"%(a, title)
 
         images = []
         for z in range(min_range, max_range + 1):
