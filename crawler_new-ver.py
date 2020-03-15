@@ -49,7 +49,7 @@ while True :
             json_data = json.load(json_file)
             json_number = json_data["cut"]
             cut = json_number
-            os.remove('%s\\%s.json')%(name, episode)
+
     print("완료")
     print('-----%s화 다운로드를 시작합니다.-----\n%s화의 총 이미지 수는 %s장입니다.'%(episode, episode, cut))
 
@@ -80,6 +80,7 @@ while True :
     images[0].save(out_fname, save_all=True, quality=100, append_images=images[1:])
     os.chdir('..')
     print("완료")
+    os.remove('%s\\%s.json' % (name, episode))
 
     exi = input("크롤러를 종료할까요? (Y/N) : ")
     if exi == 'Y':
