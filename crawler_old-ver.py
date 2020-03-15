@@ -65,7 +65,7 @@ while True :
         print('%s화 다운로드 완료.'%(a))
 
         dir = "%s화"%(a)
-        print("pdf 변환 중...", end='')
+        print("pdf 생성 중...", end='')
         prefix = ""
         min_range = 1
         max_range = cut
