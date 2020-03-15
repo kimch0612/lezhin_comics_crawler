@@ -21,7 +21,8 @@ https://cdn.lezhin.com/v2/comics/만화_숫자코드/episodes/에피_숫자코�
 """
 
 id = input('레진코믹스 계정의 아이디를 입력하세요 : ')
-pw = getpass.getpass("레진코믹스 계정의 패스워드를 입력하세요 : ") # 패스워드가 cmd 창에 띄워지는 것을 방지하기 위해 getpass를 사용
+print("레진코믹스 계정의 패스워드를 입력하세요")
+pw = getpass.getpass("(비밀번호 입력 창에 입력해도 아무것도 보이지 않는 것은 정상입니다) : ") # 패스워드가 cmd 창에 띄워지는 것을 방지하기 위해 getpass를 사용
 token = input('레진 계정의 토큰 값을 입력하세요 : ')
 print('잠시만 기다려주세요..')
 
@@ -76,9 +77,12 @@ while True :
         with open('temp\\%s.json'%(a), 'rt', encoding='UTF8') as json_file:
             json_data = json.load(json_file)
             json_number = json_data["cut"]
+            json_title = json_data["title"]
+            title = json_title
             cut = json_number
             """
-            위에서 다운로드한 json 파일에서 cut의 수를 불러와서 cut 변수에 저장
+            위에서 다운로드한 json 파일에서 cut의 수를 불러와서 cut 변수에 저장하고
+            title을 불러와서 title 변수에 저장
             """
 
         print("만화 다운로드를 준비 중입니다..")
@@ -105,26 +109,26 @@ while True :
         print('-----%s화 다운로드를 시작합니다.-----\n%s화의 총 이미지 수는 %s장입니다.' % (a, a, cut))
 
         try:
-            os.mkdir("%s화" % (a))
+            os.mkdir("%s화 - %s" % (a, title))
         except:
             pass
 
         for i in range(1, cut + 1):
-            print('%s개 이미지 중' % (cut) + " %s" % (i) + '번째 이미지 다운로드 중...', end='')
+            print('이미지 %s개 중' % (cut) + " %s" % (i) + '번째 이미지 다운로드 중...', end='')
             urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (
-            name_code, episode_code, i, token), "%s화\\%s.png" % (a, i)) # 입력받고 파싱한 정보들을 바탕으로 이미지 다운로드
+            name_code, episode_code, i, token), "%s화 - %s\\%s.png" % (a, title, i)) # 입력받고 파싱한 정보들을 바탕으로 이미지 다운로드
             print("완료")
         
         print('%s화 다운로드 완료.' % (a))
 
         print("pdf 생성 중...", end='') # 이미지들을 pdf로 병합
-        dir = "%s화" % (a)
+        dir = "%s화 - %s" % (a, title)
         prefix = ""
         min_range = 1
         max_range = cut
         os.chdir(dir)
         suffix = ".png"
-        out_fname = "%s화.pdf" % (a)
+        out_fname = "%s화 - %s.pdf" % (a, title)
 
         images = []
         for z in range(min_range, max_range + 1):
