@@ -85,11 +85,33 @@ while True :
             title을 불러와서 title 변수에 저장
             """
 
+        print("제목에 사용할 수 없는 단어가 있는지 확인 중입니다..", end="")
+        # 만약 title에 폴더 이름으로 사용할 수 없는 단어가 있다면 제거
+        if title.find(":") != -1:
+            title = title.replace(":", "")
+        if title.find("\"") != -1:
+            title = title.replace("\"", "")
+        if title.find("\\") != -1:
+            title = title.replace("\\", "")
+        if title.find("/") != -1:
+            title = title.replace("/", "")
+        if title.find("*") != -1:
+            title = title.replace("*", "")
+        if title.find("?") != -1:
+            title = title.replace("?", "")
+        if title.find("<") != -1:
+            title = title.replace("<", "")
+        if title.find(">") != -1:
+            title = title.replace(">", "")
+        if title.find("|") != -1:
+            title = title.replace("|", "")
+        print("완료")
+
         print("만화 다운로드를 준비 중입니다..")
 
         url = 'https://www.lezhin.com/ko/comic/%s/%s' % (name, a)
         driver.get(url) # 크롬으로 위 링크에 접속
-        time.sleep(5) # 페이지가 로딩되기 전에 크롤러가 작동하는 것을 방지
+        time.sleep(3) # 페이지가 로딩되기 전에 크롤러가 작동하는 것을 방지
 
         soup = BeautifulSoup(driver.page_source, "html.parser")
         div_tag = soup.find("div", id="scroll-list")
