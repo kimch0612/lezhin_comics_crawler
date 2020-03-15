@@ -30,10 +30,6 @@ while True :
         os.mkdir("%s"%(name))
     except:
         pass
-    try:
-        os.mkdir("%s\\%s화"%(name, episode))
-    except:
-        pass
 
     print("만화 정보를 다운로드 중입니다...", end="")
     def download(url, file_name):
@@ -48,18 +44,25 @@ while True :
     with open('%s\\%s.json'%(name, episode), 'rt', encoding='UTF8') as json_file:
             json_data = json.load(json_file)
             json_number = json_data["cut"]
+            json_title = json_data["title"]
             cut = json_number
+            title = json_title
 
     print("완료")
     print('-----%s화 다운로드를 시작합니다.-----\n%s화의 총 이미지 수는 %s장입니다.'%(episode, episode, cut))
 
+    try:
+        os.mkdir("%s\\%s화 - %s"%(name, episode, title))
+    except:
+        pass
+
     for i in range(1, cut+1):
         print('%s번째 이미지 중' % (cut) + " %s" % (i) + ' 번째 이미지 다운로드 중...', end='')
-        urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (name_code, episode_code, i, token), "%s\\%s화\\%s.png" % (name, episode, i))
+        urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (name_code, episode_code, i, token), "%s\\%s화 - %s\\%s.png" % (name, episode, title, i))
         print("완료")
     print('%s화 다운로드 완료.' % (episode))
 
-    dir = "%s화" % (episode)
+    dir = "%s화 - %s" % (episode, title)
     print("pdf 생성 중...", end='')
     prefix = ""
     min_range = 1
@@ -67,7 +70,7 @@ while True :
     os.chdir(name)
     os.chdir(dir)
     suffix = ".png"
-    out_fname = "%s화.pdf" % (episode)
+    out_fname = "%s화 - %s.pdf" % (episode, title)
 
     images = []
     for z in range(min_range, max_range + 1):
