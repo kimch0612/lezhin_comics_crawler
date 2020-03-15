@@ -110,9 +110,10 @@ while True :
             pass
 
         for i in range(1, cut + 1):
-            print('%s개 이미지 중' % (cut) + " %s" % (i) + '번째 이미지 다운로드 중...')
+            print('%s개 이미지 중' % (cut) + " %s" % (i) + '번째 이미지 다운로드 중...', end='')
             urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (
             name_code, episode_code, i, token), "%s화\\%s.png" % (a, i)) # 입력받고 파싱한 정보들을 바탕으로 이미지 다운로드
+            print("완료")
         
         print('%s화 다운로드 완료.' % (a))
 
