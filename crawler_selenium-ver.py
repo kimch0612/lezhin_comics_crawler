@@ -24,7 +24,8 @@ id = input('레진코믹스 계정의 아이디를 입력하세요 : ')
 print("레진코믹스 계정의 패스워드를 입력하세요")
 pw = getpass.getpass("(비밀번호 입력 창에 입력해도 아무것도 보이지 않는 것은 정상입니다) : ") # 패스워드가 cmd 창에 띄워지는 것을 방지하기 위해 getpass를 사용
 token = input('레진 계정의 토큰 값을 입력하세요 : ')
-print('잠시만 기다려주세요..')
+pdfyn = input("만화를 PDF 파일로 병합하시겠습니까? (Y/N) : ")
+print('레진코믹스 홈페이지에 로그인 중입니다. 잠시만 기다려주세요..')
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('log-level=2')
@@ -51,6 +52,9 @@ while True :
     episode = input('다운로드 받을 에피소드의 회차 범위를 지정해주세요\n(입력 예 : 1~3) : ')
     csb = episode # episode에 입력받은 내용을 csb에 저장을 하되, char 형식의 포맷을 str 형식으로 변환
     sgw = csb.split("~") # 위에서 입력받은 내용을 ~을 기준으로 앞과 뒤를 나눠서 리스트에 저장
+    h = "0"
+    titlel = []
+    cutl = []
 
     try:
         os.mkdir("%s" % (name)) # 폴더를 생성하되 위에서 입력받은 만화의 영어 이름을 폴더의 이름으로 지정해서 생성
@@ -78,8 +82,8 @@ while True :
             json_data = json.load(json_file)
             json_number = json_data["cut"]
             json_title = json_data["title"]
-            title = json_title
             cut = json_number
+            title = json_title
             """
             위에서 다운로드한 json 파일에서 cut의 수를 불러와서 cut 변수에 저장하고
             title을 불러와서 title 변수에 저장
@@ -106,7 +110,8 @@ while True :
         if title.find("|") != -1:
             title = title.replace("|", "")
         print("완료")
-
+        titlel.append(title)# 나중에 PDF로 변환할 때 사용하기 위해 리스트로 저장
+        cutl.append(cut)
         print("만화 다운로드를 준비 중입니다..")
 
         url = 'https://www.lezhin.com/ko/comic/%s/%s' % (name, a)
@@ -142,33 +147,44 @@ while True :
             print("완료")
         
         print('%s화 다운로드 완료.' % (a))
-
-        print("pdf 생성 중...", end='') # 이미지들을 pdf로 병합
-        dir = "%s화 - %s" % (a, title)
-        prefix = ""
-        min_range = 1
-        max_range = cut
-        os.chdir(dir)
-        suffix = ".png"
-        out_fname = "%s화 - %s.pdf" % (a, title)
-
-        images = []
-        for z in range(min_range, max_range + 1):
-            fname = prefix + str(z) + suffix
-            im = Image.open(fname)
-            if im.mode == "RGBA":
-                im = im.convert("RGB")
-            images.append(im)
         os.chdir('..')
-        images[0].save(out_fname, save_all=True, quality=100, append_images=images[1:])
-        os.chdir('..')
-        print("완료")
 
     print('임시파일 삭제 중...') # 처음에 만들었던 임시파일 폴더를 삭제
     os.chdir(name)
     shutil.rmtree(r"temp")
     print('완료!!')
     os.chdir('..')
+
+    if pdfyn == 'Y':
+        os.chdir(name)
+        h = 0
+        g = 0
+        print("pdf 생성 중...", end='')  # 이미지들을 pdf로 병합
+        for a in range(int(sgw[0]), int(sgw[1]) + 1):
+            title = titlel[h]
+            cut = cutl[g]
+            dir = "%s화 - %s" % (a, title)
+            prefix = ""
+            min_range = 1
+            max_range = cut
+            os.chdir(dir)
+            suffix = ".png"
+            out_fname = "%s화 - %s.pdf" % (a, title)
+
+            images = []
+            for z in range(min_range, max_range + 1):
+                fname = prefix + str(z) + suffix
+                im = Image.open(fname)
+                if im.mode == "RGBA":
+                    im = im.convert("RGB")
+                images.append(im)
+            os.chdir('..')
+            images[0].save(out_fname, save_all=True, quality=100, append_images=images[1:])
+            os.chdir('..')
+            os.chdir(name)
+            h = h + 1
+            g = g + 1
+        print("완료")
 
     exi = input("크롤러를 종료할까요? (Y/N) : ")
     if exi == 'Y':
