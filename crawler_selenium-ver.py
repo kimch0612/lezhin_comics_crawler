@@ -8,6 +8,7 @@ import json
 import urllib.request
 import shutil
 from PIL import Image
+import urllib.error
 
 """
 토큰은 숫자와 소문자 영어로 구성되어 있으며 xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx 형식으로 이루어졌습니다
