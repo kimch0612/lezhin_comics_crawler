@@ -60,6 +60,8 @@ crawler_selenium-ver : 해당 크롤러가 있는 경로에 Chrome Driver를 둬
 
 chawler_old(new)-ver : cmd에서 python chawler_old-ver.py (또는 chawler_new-ver.py) 를 입력해주면 실행 됨
 
-실행 되면 크롤러가 안내하는 대로 따르면 됨
+실행 되면 크롤러가 안내하는 대로 따르면 됨  
 
+# 스크린샷  
+![스크린샷(45)](https://user-images.githubusercontent.com/10193967/78167958-462ec300-748a-11ea-87a5-bd110bad7e96.png)  
 문의 : kimch061279@gmail.com
