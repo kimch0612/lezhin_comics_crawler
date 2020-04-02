@@ -52,6 +52,28 @@ while True :
             title = json_title
             cut = json_number
 
+            print("제목에 사용할 수 없는 단어가 있는지 확인 중입니다..", end="")
+            # 만약 title에 폴더 이름으로 사용할 수 없는 단어가 있다면 제거
+            if title.find(":") != -1:
+                title = title.replace(":", "")
+            if title.find("\"") != -1:
+                title = title.replace("\"", "")
+            if title.find("\\") != -1:
+                title = title.replace("\\", "")
+            if title.find("/") != -1:
+                title = title.replace("/", "")
+            if title.find("*") != -1:
+                title = title.replace("*", "")
+            if title.find("?") != -1:
+                title = title.replace("?", "")
+            if title.find("<") != -1:
+                title = title.replace("<", "")
+            if title.find(">") != -1:
+                title = title.replace(">", "")
+            if title.find("|") != -1:
+                title = title.replace("|", "")
+            print("완료")
+
         print('-----%s화 다운로드를 시작합니다.-----\n%s화의 총 이미지 수는 %s장입니다.'%(a, a, cut))
 
         try:
