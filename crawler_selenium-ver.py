@@ -53,6 +53,9 @@ while True :
     episode = input('다운로드 받을 에피소드의 회차 범위를 지정해주세요\n(입력 예 : 1~3) : ')
     csb = episode # episode에 입력받은 내용을 csb에 저장을 하되, char 형식의 포맷을 str 형식으로 변환
     sgw = csb.split("~") # 위에서 입력받은 내용을 ~을 기준으로 앞과 뒤를 나눠서 리스트에 저장
+    h = "0"
+    titlel = []
+    cutl = []
 
     try:
         os.mkdir("%s" % (name)) # 폴더를 생성하되 위에서 입력받은 만화의 영어 이름을 폴더의 이름으로 지정해서 생성
@@ -63,6 +66,7 @@ while True :
     except:
         pass
 
+    os.chdir(name)
     print("만화 정보를 다운로드 중입니다...", end="")
     for y in range(int(sgw[0]), int(sgw[1]) + 1):
         def download(url, file_name):
@@ -71,11 +75,10 @@ while True :
                 file.write(response.content)
         if __name__ == '__main__':
             url = "http://cdn.lezhin.com/episodes/%s/%s.json?access_token=%s" % (name, y, token) # 임시파일 다운로드
-            download(url, "%s\\temp\\%s.json" % (name, y))
+            download(url, "temp\\%s.json" % (y))
     print("완료")
 
     for a in range(int(sgw[0]), int(sgw[1])+1):
-        os.chdir(name)
         with open('temp\\%s.json'%(a), 'rt', encoding='UTF8') as json_file:
             json_data = json.load(json_file)
             json_number = json_data["cut"]
@@ -108,6 +111,8 @@ while True :
         if title.find("|") != -1:
             title = title.replace("|", "")
         print("완료")
+        titlel.append(title)# 나중에 PDF로 변환할 때 사용하기 위해 리스트로 저장
+        cutl.append(cut)
         print("만화 다운로드를 준비 중입니다..")
 
         while True:
@@ -137,7 +142,6 @@ while True :
         """
 
         print('-----%s화 다운로드를 시작합니다.-----\n%s화의 총 이미지 수는 %s장입니다.' % (a, a, cut))
-        # joayoung
         try:
             os.mkdir("%s화 - %s" % (a, title))
         except:
@@ -148,17 +152,19 @@ while True :
             urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (
             name_code, episode_code, i, token), "%s화 - %s\\%s.png" % (a, title, i)) # 입력받고 파싱한 정보들을 바탕으로 이미지 다운로드
             print("완료")
-
         print('%s화 다운로드 완료.' % (a))
-        os.chdir('..')
 
-        if pdfyn == 'Y':
-            os.chdir(name)
-            print("pdf 생성 중...", end='')  # 이미지들을 pdf로 병합
-            dir = "%s화 - %s" % (a, title)
+    if pdfyn == 'Y':
+        h = 0
+        g = 0
+        for a in range(int(sgw[0]), int(sgw[1]) + 1):
+            print("%s화 pdf 생성 중..."%(a), end='')  # 이미지들을 pdf로 병합
+            title = titlel[h]
+            cut = cutl[g]
             prefix = ""
             min_range = 1
             max_range = cut
+            dir = "%s화 - %s" % (a, title)
             os.chdir(dir)
             suffix = ".png"
             out_fname = "%s화 - %s.pdf" % (a, title)
@@ -172,20 +178,18 @@ while True :
                 images.append(im)
             os.chdir('..')
             images[0].save(out_fname, save_all=True, quality=100, append_images=images[1:])
-            os.chdir('..')
-            os.chdir(name)
+            h = h + 1
+            g = g + 1
             print("완료")
-            print(os.getcwd())
 
     print('임시파일 삭제 중...') # 처음에 만들었던 임시파일 폴더를 삭제
-    os.chdir(name)
     shutil.rmtree(r"temp")
     print('완료!!')
-    os.chdir('..')
 
     exi = input("크롤러를 종료할까요? (Y/N) : ")
     if exi == 'Y':
         driver.quit() # 좀비 프로세서를 방지하기 위해 크롬 드라이버 세션을 킬
         break
     else:
+        os.chdir('..')
         continue # While문 처음으로 돌아감
