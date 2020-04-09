@@ -53,9 +53,6 @@ while True :
     episode = input('다운로드 받을 에피소드의 회차 범위를 지정해주세요\n(입력 예 : 1~3) : ')
     csb = episode # episode에 입력받은 내용을 csb에 저장을 하되, char 형식의 포맷을 str 형식으로 변환
     sgw = csb.split("~") # 위에서 입력받은 내용을 ~을 기준으로 앞과 뒤를 나눠서 리스트에 저장
-    h = "0"
-    titlel = []
-    cutl = []
 
     try:
         os.mkdir("%s" % (name)) # 폴더를 생성하되 위에서 입력받은 만화의 영어 이름을 폴더의 이름으로 지정해서 생성
@@ -111,21 +108,26 @@ while True :
         if title.find("|") != -1:
             title = title.replace("|", "")
         print("완료")
-        titlel.append(title)# 나중에 PDF로 변환할 때 사용하기 위해 리스트로 저장
-        cutl.append(cut)
         print("만화 다운로드를 준비 중입니다..")
 
-        url = 'https://www.lezhin.com/ko/comic/%s/%s' % (name, a)
-        driver.get(url) # 크롬으로 위 링크에 접속
-        time.sleep(3) # 페이지가 로딩되기 전에 크롤러가 작동하는 것을 방지
+        while True:
+            try:
+                url = 'https://www.lezhin.com/ko/comic/%s/%s' % (name, a)
+                driver.get(url)  # 크롬으로 위 링크에 접속
+                time.sleep(3)  # 페이지가 로딩되기 전에 크롤러가 작동하는 것을 방지
 
-        soup = BeautifulSoup(driver.page_source, "html.parser")
-        div_tag = soup.find("div", id="scroll-list")
-        l = list()
-        for img in div_tag.find_all("img"):
-            l.append(img.get("src").split("/"))
-        name_code = l[1][5]
-        episode_code = l[1][7]
+                soup = BeautifulSoup(driver.page_source, "html.parser")
+                div_tag = soup.find("div", id="scroll-list")
+                l = list()
+                for img in div_tag.find_all("img"):
+                    l.append(img.get("src").split("/"))
+                name_code = l[1][5]
+                episode_code = l[1][7]
+                break
+            except IndexError:
+                print("크롤러에 오류가 발생하여 다운로드를 재시도 합니다.")
+                continue
+
         """
         bs4를 이용해서 html를 파싱하는데, div태그 안에 있는 scroll-list 내용물을 찾는다
         list()라 하는 리스트를 선언하고, l이라 하는 변수에 저장
@@ -135,7 +137,7 @@ while True :
         """
 
         print('-----%s화 다운로드를 시작합니다.-----\n%s화의 총 이미지 수는 %s장입니다.' % (a, a, cut))
-
+        # joayoung
         try:
             os.mkdir("%s화 - %s" % (a, title))
         except:
@@ -146,24 +148,13 @@ while True :
             urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (
             name_code, episode_code, i, token), "%s화 - %s\\%s.png" % (a, title, i)) # 입력받고 파싱한 정보들을 바탕으로 이미지 다운로드
             print("완료")
-        
+
         print('%s화 다운로드 완료.' % (a))
         os.chdir('..')
 
-    print('임시파일 삭제 중...') # 처음에 만들었던 임시파일 폴더를 삭제
-    os.chdir(name)
-    shutil.rmtree(r"temp")
-    print('완료!!')
-    os.chdir('..')
-
-    if pdfyn == 'Y':
-        os.chdir(name)
-        h = 0
-        g = 0
-        print("pdf 생성 중...", end='')  # 이미지들을 pdf로 병합
-        for a in range(int(sgw[0]), int(sgw[1]) + 1):
-            title = titlel[h]
-            cut = cutl[g]
+        if pdfyn == 'Y':
+            os.chdir(name)
+            print("pdf 생성 중...", end='')  # 이미지들을 pdf로 병합
             dir = "%s화 - %s" % (a, title)
             prefix = ""
             min_range = 1
@@ -183,9 +174,14 @@ while True :
             images[0].save(out_fname, save_all=True, quality=100, append_images=images[1:])
             os.chdir('..')
             os.chdir(name)
-            h = h + 1
-            g = g + 1
-        print("완료")
+            print("완료")
+            print(os.getcwd())
+
+    print('임시파일 삭제 중...') # 처음에 만들었던 임시파일 폴더를 삭제
+    os.chdir(name)
+    shutil.rmtree(r"temp")
+    print('완료!!')
+    os.chdir('..')
 
     exi = input("크롤러를 종료할까요? (Y/N) : ")
     if exi == 'Y':
