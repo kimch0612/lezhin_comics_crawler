@@ -7,7 +7,7 @@ import os
 import json
 import urllib.request
 import shutil
-from PIL import Image
+import natsort
 import urllib.error
 from img2pdf import convert
 
@@ -172,16 +172,15 @@ while True :
             with open("%s화 - %s.pdf" % (a, title), "wb") as f:
                 dir = ('%s화 - %s' % (a, title))
                 os.chdir(dir)
-                img_list_png = [file for file in os.listdir() if file.endswith(".png")]
+                img_list_png = natsort.natsorted([file for file in os.listdir() if file.endswith(".png")])
                 pdf = convert(img_list_png)
                 f.write(pdf)
-
+                os.chdir('..')
                 h += 1
                 g += 1
                 print("완료")
 
     print('임시파일 삭제 중...') # 처음에 만들었던 임시파일 폴더를 삭제
-    os.chdir('..')
     shutil.rmtree(r"temp")
     print('완료!!')
 
