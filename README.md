@@ -29,8 +29,7 @@ http://cdn.lezhin.com/episodes/만화이름/회차수?access_token=토큰값 // 
 
 http://cdn.lezhin.com/episodes/만화이름?access_token=토큰값 // 해당 만화의 에피소드의 개수와 해당 에피소드들의 컷 수를 알 수 있음
 
-2, 3번째 링크는 json 형식으로 구성되어있음
-
+2, 3번째 링크는 json 형식으로 구성되어있음  
 
 위의 방식은 2017년 3월 10일 이후에 올라온 만화나 구입하지 않은 유료 만화의 경우 404 오류가 뜸
 
@@ -61,6 +60,11 @@ crawler_selenium-ver : 해당 크롤러가 있는 경로에 Chrome Driver를 둬
 chawler_old(new)-ver : cmd에서 python chawler_old-ver.py (또는 chawler_new-ver.py) 를 입력해주면 실행 됨
 
 실행 되면 크롤러가 안내하는 대로 따르면 됨  
+# PDF 병합 관련  
+위 크롤러는 만화를 PDF로 병합해주는 기능을 지원하고 있습니다.  
+하지만 PIL 라이브러리의 한계로 병합 기능을 사용하게 되면 메모리 점유율이 엄청나게 높아지게 됩니다.  
+그렇기 때문에 많은 이미지를 다운로드 및 병합을 할 경우 PDF 병합 기능 사용은 지양해주시기 바랍니다.  
+메모리 점유율이 높아지다 보면  memory error가 발생할 가능성이 있습니다.
 
 # 스크린샷  
 ![스크린샷(45)](https://user-images.githubusercontent.com/10193967/78167958-462ec300-748a-11ea-87a5-bd110bad7e96.png)  
