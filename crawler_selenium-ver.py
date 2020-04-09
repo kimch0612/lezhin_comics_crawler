@@ -158,7 +158,7 @@ while True :
             urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (
             name_code, episode_code, i, token), "%s화 - %s\\%s.png" % (a, title, i)) # 입력받고 파싱한 정보들을 바탕으로 이미지 다운로드
             print("완료")
-            time.sleep(0.5)
+            time.sleep(0.3)
         print('%s화 다운로드 완료.' % (a))
 
     if pdfyn == 'Y':
