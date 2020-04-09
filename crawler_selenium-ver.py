@@ -132,6 +132,11 @@ while True :
                 break
             except IndexError:
                 print("****크롤러에 오류가 발생하여 다운로드를 재시작 하는 중입니다..****")
+                print("오류 내용 : IndexError")
+                continue
+            except AttributeError:
+                print("****크롤러에 오류가 발생하여 다운로드를 재시작 하는 중입니다..****")
+                print("오류 내용 : AttributeError")
                 continue
 
         """
@@ -153,6 +158,7 @@ while True :
             urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (
             name_code, episode_code, i, token), "%s화 - %s\\%s.png" % (a, title, i)) # 입력받고 파싱한 정보들을 바탕으로 이미지 다운로드
             print("완료")
+            time.sleep(0.5)
         print('%s화 다운로드 완료.' % (a))
 
     if pdfyn == 'Y':
