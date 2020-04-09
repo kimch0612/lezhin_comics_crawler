@@ -9,6 +9,7 @@ import urllib.request
 import shutil
 from PIL import Image
 import urllib.error
+from img2pdf import convert
 
 """
 토큰은 숫자와 소문자 영어로 구성되어 있으며 xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx 형식으로 이루어졌습니다
@@ -155,34 +156,32 @@ while True :
         print('%s화 다운로드 완료.' % (a))
 
     if pdfyn == 'Y':
+        u = 0
         h = 0
         g = 0
+
         for a in range(int(sgw[0]), int(sgw[1]) + 1):
-            print("%s화 pdf 생성 중..."%(a), end='')  # 이미지들을 pdf로 병합
+            print("%s화 pdf 병합 중..." % (a), end='')  # 이미지들을 pdf로 병합
             title = titlel[h]
             cut = cutl[g]
-            prefix = ""
-            min_range = 1
-            max_range = cut
-            dir = "%s화 - %s" % (a, title)
-            os.chdir(dir)
-            suffix = ".png"
-            out_fname = "%s화 - %s.pdf" % (a, title)
 
-            images = []
-            for z in range(min_range, max_range + 1):
-                fname = prefix + str(z) + suffix
-                im = Image.open(fname)
-                if im.mode == "RGBA":
-                    im = im.convert("RGB")
-                images.append(im)
-            os.chdir('..')
-            images[0].save(out_fname, save_all=True, quality=100, append_images=images[1:])
-            h = h + 1
-            g = g + 1
-            print("완료")
+            outpath1 = "%s화 - %s" % (a, title)
+            outpath2 = os.path.dirname(os.path.realpath(__file__))
+            outpath3 = os.path.dirname(os.path.realpath('__file__'))
+
+            with open("%s화 - %s.pdf" % (a, title), "wb") as f:
+                dir = ('%s화 - %s' % (a, title))
+                os.chdir(dir)
+                img_list_png = [file for file in os.listdir() if file.endswith(".png")]
+                pdf = convert(img_list_png)
+                f.write(pdf)
+
+                h += 1
+                g += 1
+                print("완료")
 
     print('임시파일 삭제 중...') # 처음에 만들었던 임시파일 폴더를 삭제
+    os.chdir('..')
     shutil.rmtree(r"temp")
     print('완료!!')
 
