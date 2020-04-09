@@ -6,7 +6,7 @@
 crawler_selenium-ver (추천) : 2017년 3월 10일 이후에 연재된 만화 크롤러 (* 복수 다운로드 가능)  
 crawler_new-ver : 2017년 3월 10일 이후에 연재된 만화 크롤러 (* 복수 다운로드 불가능)  
 crawler_old-ver : 2017년 3월 10일 이전에 연재됐던 만화 크롤러 (* 복수 다운로드 가능)  
-※ 이 크롤러를 사용하려면 requests, PIL, [bs4, Selenium(셀레니움 크롤러만 해당)] 모듈을 설치해야 함  
+※ 이 크롤러를 사용하려면 requests, PIL, [bs4, natsort, Selenium(셀레니움 크롤러만 해당)] 모듈을 설치해야 함  
 
 구동이 확인된 환경  
 Windows10 64bit 1909 버전, Python 3.8.0  
@@ -32,12 +32,6 @@ crawler_selenium-ver : 해당 크롤러가 있는 경로에 Chrome Driver를 둬
 ※ 크롬 드라이버의 다운로드 및 사용 방법은 검색 바람  
 chawler_old(new)-ver : cmd에서 python chawler_old-ver.py (또는 chawler_new-ver.py) 를 입력해주면 실행 됨  
 실행 되면 크롤러가 안내하는 대로 따르면 됨  
-
-# PDF 병합 관련  
-위 크롤러는 만화를 PDF로 병합해주는 기능을 지원하고 있습니다.  
-하지만 PIL 라이브러리의 한계로 병합 기능을 사용하게 되면 메모리 점유율이 엄청나게 높아지게 됩니다.  
-그렇기 때문에 많은 이미지를 다운로드 및 병합을 할 경우 PDF 병합 기능 사용은 지양해주시기 바랍니다.  
-메모리 점유율이 높아지다 보면  memory error가 발생할 가능성이 있습니다.
 
 # 스크린샷  
 ![스크린샷(45)](https://user-images.githubusercontent.com/10193967/78167958-462ec300-748a-11ea-87a5-bd110bad7e96.png)  
