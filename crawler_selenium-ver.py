@@ -46,7 +46,7 @@ driver.implicitly_wait(delay)
 driver.find_element_by_id('login-email').send_keys(id)
 driver.find_element_by_id('login-password').send_keys(pw) # 위에서 입력받은 아이디와 패스워드를 필드에 입력해줌
 driver.find_element_by_xpath('//*[@id="login-form"]/div[4]/button').click()
-time.sleep(5) # 페이지가 로딩되기 전에 크롤러가 작동하는 것을 방지
+time.sleep(3) # 페이지가 로딩되기 전에 크롤러가 작동하는 것을 방지
 
 while True :
     name = input('만화의 영어 이름을 입력하세요 : ')
@@ -130,7 +130,7 @@ while True :
                 episode_code = l[1][7]
                 break
             except IndexError:
-                print("****크롤러에 오류가 발생하여 다운로드를 재시작 합니다****")
+                print("****크롤러에 오류가 발생하여 다운로드를 재시작 하는 중입니다..****")
                 continue
 
         """
