@@ -130,7 +130,7 @@ while True :
                 episode_code = l[1][7]
                 break
             except IndexError:
-                print("크롤러에 오류가 발생하여 다운로드를 재시도 합니다.")
+                print("****크롤러에 오류가 발생하여 다운로드를 재시작 합니다****")
                 continue
 
         """
