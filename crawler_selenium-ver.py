@@ -68,7 +68,7 @@ while True :
         pass
 
     os.chdir(name)
-    print("만화 정보를 다운로드 중입니다...", end="")
+    print("만화 정보를 다운로드 및 분석 중입니다...", end="")
     for y in range(int(sgw[0]), int(sgw[1]) + 1):
         def download(url, file_name):
             with open(file_name, "wb") as file:
@@ -77,7 +77,6 @@ while True :
         if __name__ == '__main__':
             url = "http://cdn.lezhin.com/episodes/%s/%s.json?access_token=%s" % (name, y, token) # 임시파일 다운로드
             download(url, "temp\\%s.json" % (y))
-    print("완료")
 
     for a in range(int(sgw[0]), int(sgw[1])+1):
         with open('temp\\%s.json'%(a), 'rt', encoding='UTF8') as json_file:
@@ -91,7 +90,6 @@ while True :
             title을 불러와서 title 변수에 저장
             """
 
-        print("제목에 사용할 수 없는 단어가 있는지 확인 중입니다..", end="")
         # 만약 title에 폴더 이름으로 사용할 수 없는 단어가 있다면 제거
         if title.find(":") != -1:
             title = title.replace(":", "")
@@ -111,11 +109,11 @@ while True :
             title = title.replace(">", "")
         if title.find("|") != -1:
             title = title.replace("|", "")
-        print("완료")
         titlel.append(title)# 나중에 PDF로 변환할 때 사용하기 위해 리스트로 저장
         cutl.append(cut)
-        print("만화 다운로드를 준비 중입니다..")
+        print("완료")
 
+        print("만화 다운로드를 준비 중입니다..")
         while True:
             try:
                 url = 'https://www.lezhin.com/ko/comic/%s/%s' % (name, a)
