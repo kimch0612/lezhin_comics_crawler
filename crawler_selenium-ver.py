@@ -32,7 +32,7 @@ print('레진코믹스 홈페이지에 로그인 중입니다. 잠시만 기다�
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('log-level=2')
 chrome_options.add_argument('headless')
-chrome_options.add_argument('window-size=1920x1080')
+chrome_options.add_argument('window-size=1280x720')
 chrome_options.add_argument("disable-gpu")
 driver = webdriver.Chrome('chromedriver.exe', chrome_options=chrome_options)
 driver.get('https://www.lezhin.com/ko/login')
@@ -160,7 +160,6 @@ while True :
         print('%s화 다운로드 완료.' % (a))
 
     if pdfyn == 'Y':
-        u = 0
         h = 0
         g = 0
 
