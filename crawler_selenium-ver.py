@@ -90,6 +90,8 @@ while True :
                 print("에러 내용 : TimeoutError")
                 print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nURL : ", end='')
                 print(url)
+                driver.quit()
+                sys.exit(1)
             else :
                 print("****크롤러에 오류가 발생하여 다운로드를 재시작 하는 중입니다..****")
                 print("오류 내용 : TimeoutError")
@@ -145,8 +147,8 @@ while True :
                 l = list()
                 for img in div_tag.find_all("img"):
                     l.append(img.get("src").split("/"))
-                name_code = l[0][5]
-                episode_code = l[0][7]
+                name_code = l[1][5]
+                episode_code = l[1][7]
                 break
             except IndexError:
                 if err2 == 5:
@@ -161,12 +163,20 @@ while True :
                     print("episode_code : ", end='')
                     print(episode_code)
                     print("개발자 이메일 주소 : kimch061279@gmail.com")
+                    driver.quit()
                     sys.exit(1)
-                else :
-                    print("****크롤러에 오류가 발생하여 다운로드를 재시작 하는 중입니다..****")
-                    print("오류 내용 : IndexError")
-                    err2 += 1
-                    continue
+                else:
+                   try :
+                        print("****크롤러에 오류가 발생하여 다운로드를 재시작 하는 중입니다..****")
+                        print("오류 내용 : IndexError")
+                        name_code = 0
+                        episode_code = 0
+                        name_code = l[0][5]
+                        episode_code = l[0][7]
+                        break
+                   except IndexError:
+                        continue
+
             except AttributeError:
                 if err2 == 5:
                     print("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
@@ -180,6 +190,7 @@ while True :
                     print("episode_code : ", end='')
                     print(episode_code)
                     print("개발자 이메일 주소 : kimch061279@gmail.com")
+                    driver.quit()
                     sys.exit(1)
                 else:
                     print("****크롤러에 오류가 발생하여 다운로드를 재시작 하는 중입니다..****")
