@@ -56,7 +56,8 @@ while True :
     csb = episode # episode에 입력받은 내용을 csb에 저장을 하되, char 형식의 포맷을 str 형식으로 변환
     sgw = csb.split("~") # 위에서 입력받은 내용을 ~을 기준으로 앞과 뒤를 나눠서 리스트에 저장
     h = "0"
-    err = 0
+    err1 = 0
+    err2 = 0
     titlel = []
     cutl = []
 
@@ -71,14 +72,31 @@ while True :
 
     os.chdir(name)
     print("만화 정보를 다운로드 및 분석 중입니다...", end="")
-    for y in range(int(sgw[0]), int(sgw[1]) + 1):
-        def download(url, file_name):
-            with open(file_name, "wb") as file:
-                response = get(url)
-                file.write(response.content)
-        if __name__ == '__main__':
-            url = "http://cdn.lezhin.com/episodes/%s/%s.json?access_token=%s" % (name, y, token) # 임시파일 다운로드
-            download(url, "temp\\%s.json" % (y))
+    while True:
+        try:
+            for y in range(int(sgw[0]), int(sgw[1]) + 1):
+                def download(url, file_name):
+                    with open(file_name, "wb") as file:
+                        response = get(url)
+                        file.write(response.content)
+                if __name__ == '__main__':
+                    url = "http://cdn.lezhin.com/episodes/%s/%s.json?access_token=%s" % (name, y, token) # 임시파일 다운로드
+                    download(url, "temp\\%s.json" % (y))
+                    break
+        except TimeoutError:
+            if err1 == 5:
+                print("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
+                      "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
+                      "오류 제보는 더 나은 크롤러를 만드는데 큰 도움이 됩니다.")
+                print("에러 내용 : TimeoutError")
+                print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nURL : ", end='')
+                print(url)
+            else :
+                print("****크롤러에 오류가 발생하여 다운로드를 재시작 하는 중입니다..****")
+                print("오류 내용 : TimeoutError")
+                err1 += 1
+                continue
+
 
     for a in range(int(sgw[0]), int(sgw[1])+1):
         with open('temp\\%s.json'%(a), 'rt', encoding='UTF8') as json_file:
@@ -131,7 +149,7 @@ while True :
                 episode_code = l[1][7]
                 break
             except IndexError:
-                if err == 5:
+                if err2 == 5:
                     print("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
                           "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
                           "오류 제보는 더 나은 크롤러를 만드는데 큰 도움이 됩니다.")
@@ -147,10 +165,10 @@ while True :
                 else :
                     print("****크롤러에 오류가 발생하여 다운로드를 재시작 하는 중입니다..****")
                     print("오류 내용 : IndexError")
-                    err += 1
+                    err2 += 1
                     continue
             except AttributeError:
-                if err == 5:
+                if err2 == 5:
                     print("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
                           "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
                           "오류 제보는 더 나은 크롤러를 만드는데 큰 도움이 됩니다.")
@@ -166,7 +184,7 @@ while True :
                 else:
                     print("****크롤러에 오류가 발생하여 다운로드를 재시작 하는 중입니다..****")
                     print("오류 내용 : AttributeError")
-                    err += 1
+                    err2 += 1
                     continue
 
         """
