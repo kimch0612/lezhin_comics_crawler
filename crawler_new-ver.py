@@ -1,3 +1,4 @@
+# 개발이 중단된 크롤러입니다.
 from requests import get
 import json
 import urllib.request
