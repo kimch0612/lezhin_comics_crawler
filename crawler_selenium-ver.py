@@ -82,7 +82,7 @@ while True :
                 if __name__ == '__main__':
                     url = "http://cdn.lezhin.com/episodes/%s/%s.json?access_token=%s" % (name, y, token) # 임시파일 다운로드
                     download(url, "temp\\%s.json" % (y))
-                    break
+                break
         except TimeoutError:
             if err1 == 5:
                 print("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
