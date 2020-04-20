@@ -90,6 +90,7 @@ while True :
                 print("에러 내용 : TimeoutError")
                 print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nURL : ", end='')
                 print(url)
+                print("개발자 이메일 주소 : kimch061279@gmail.com")
                 driver.quit()
                 sys.exit(1)
             else :
