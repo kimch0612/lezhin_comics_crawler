@@ -162,9 +162,9 @@ while True :
     if pdfyn == 'Y':
         h = 0
         g = 0
+        print("만화를 PDF로 병합 중입니다..", end='')
 
         for a in range(int(sgw[0]), int(sgw[1]) + 1):
-            print("%s화 pdf 병합 중..." % (a), end='')  # 이미지들을 pdf로 병합
             title = titlel[h]
             cut = cutl[g]
 
@@ -181,7 +181,7 @@ while True :
                 os.chdir('..')
                 h += 1
                 g += 1
-                print("완료")
+        print("완료")
 
     print('임시파일 삭제 중...') # 처음에 만들었던 임시파일 폴더를 삭제
     shutil.rmtree(r"temp")
