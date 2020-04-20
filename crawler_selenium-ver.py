@@ -56,8 +56,6 @@ while True :
     csb = episode # episode에 입력받은 내용을 csb에 저장을 하되, char 형식의 포맷을 str 형식으로 변환
     sgw = csb.split("~") # 위에서 입력받은 내용을 ~을 기준으로 앞과 뒤를 나눠서 리스트에 저장
     h = "0"
-    err1 = 0
-    err2 = 0
     titlel = []
     cutl = []
 
@@ -72,6 +70,7 @@ while True :
 
     os.chdir(name)
     print("만화 정보를 다운로드 및 분석 중입니다...", end="")
+    err1 = 0
     while True:
         try:
             for y in range(int(sgw[0]), int(sgw[1]) + 1):
@@ -134,6 +133,7 @@ while True :
         print("완료")
 
         print("만화 다운로드를 준비 중입니다..")
+        err2 = 0
         while True:
             try:
                 url = 'https://www.lezhin.com/ko/comic/%s/%s' % (name, a)
@@ -145,8 +145,8 @@ while True :
                 l = list()
                 for img in div_tag.find_all("img"):
                     l.append(img.get("src").split("/"))
-                name_code = l[1][5]
-                episode_code = l[1][7]
+                name_code = l[0][5]
+                episode_code = l[0][7]
                 break
             except IndexError:
                 if err2 == 5:
@@ -154,12 +154,12 @@ while True :
                           "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
                           "오류 제보는 더 나은 크롤러를 만드는데 큰 도움이 됩니다.")
                     print("에러 내용 : IndexError")
+                    print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nlist : ", end='')
+                    print(l)
                     print("name_code : ", end='')
                     print(name_code)
                     print("episode_code : ", end='')
                     print(episode_code)
-                    print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nlist : ", end='')
-                    print(list)
                     print("개발자 이메일 주소 : kimch061279@gmail.com")
                     sys.exit(1)
                 else :
@@ -173,12 +173,12 @@ while True :
                           "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
                           "오류 제보는 더 나은 크롤러를 만드는데 큰 도움이 됩니다.")
                     print("에러 내용 : AttributeError")
+                    print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nlist : ", end='')
+                    print(l)
                     print("name_code : ", end='')
                     print(name_code)
                     print("episode_code : ", end='')
                     print(episode_code)
-                    print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nlist : ", end='')
-                    print(list)
                     print("개발자 이메일 주소 : kimch061279@gmail.com")
                     sys.exit(1)
                 else:
@@ -206,7 +206,7 @@ while True :
             urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (
             name_code, episode_code, i, token), "%s화 - %s\\%s.png" % (a, title, i)) # 입력받고 파싱한 정보들을 바탕으로 이미지 다운로드
             print("완료")
-            time.sleep(0.3)
+            time.sleep(0.1)
         print('%s화 다운로드 완료.' % (a))
 
     if pdfyn == 'Y':
