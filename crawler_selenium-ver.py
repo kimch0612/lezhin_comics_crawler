@@ -167,7 +167,7 @@ while True :
                     sys.exit(1)
                 else:
                    try :
-                        print("****크롤러에 오류가 발생하여 다운로드를 재시작 하는 중입니다..****")
+                        print("****오류가 발생하여 다운로드를 다른 방식으로 시도하는 중입니다..****")
                         print("오류 내용 : IndexError")
                         name_code = 0
                         episode_code = 0
