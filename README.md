@@ -26,13 +26,22 @@ https://cdn.lezhin.com/v2/comics/(만화_번호)/episodes/(에피소드_번호)/
 에피소드 번호의 경우에는 최신화라고 해서 무조건 숫자가 큰 것은 아니며 해당 에피소드의 컷 수를 알아내는 방법은 위의 방법과 동일함  
 
 # 크롤러 사용 방법  
+chawler_old(new)-ver : cmd에서 python chawler_old-ver.py (또는 chawler_new-ver.py) 를 입력해주면 실행 됨  
 crawler_selenium-ver : 해당 크롤러가 있는 경로에 Chrome Driver를 둬야 함  
 (ex. C:\에 crawler_selenium-ver.py 파일이 있다면 chromedriver.exe 파일도 C:\에 있어야 함)  
 이후 cmd에서 python crawler_selenium-ver.py 를 입력해주면 실행 됨  
 ※ 크롬 드라이버의 다운로드 및 사용 방법은 검색 바람  
-chawler_old(new)-ver : cmd에서 python chawler_old-ver.py (또는 chawler_new-ver.py) 를 입력해주면 실행 됨  
-실행 되면 크롤러가 안내하는 대로 따르면 됨  
+setting.json : json 파일에 계정과 비밀번호, 토큰값, PDF 변환 여부 등 설정값을 저장해서 자동으로 불러올 수 있게 해주는 파일  
+위 파일은 Release 탭에 가면 받을 수 있으며,  
+Notepad++ 와 같은 메모장 프로그램을 설치해서 기본으로 적혀있는 값을 참고하여 자신의 정보에 맞게 수정을 해주면 됨  
+아래의 내용은 setting.json 파일에 있는 설정 값들에 대한 설명임  
+AccountID : 레진코믹스 id (이메일 형식)  
+AccountPW : 레진코믹스 pw  
+AccountToken : 레진코믹스 계정 토큰 값  
+Pdfyn : 만화를 PDF로 병합할지 여부  
+![KakaoTalk_20200421_183846174](https://user-images.githubusercontent.com/10193967/79850899-82a56d00-83ff-11ea-9940-3724fc2d9b13.png)  
 
 # 스크린샷  
 ![스크린샷(45)](https://user-images.githubusercontent.com/10193967/78167958-462ec300-748a-11ea-87a5-bd110bad7e96.png)  
+![KakaoTalk_20200421_183524560](https://user-images.githubusercontent.com/10193967/79850882-7caf8c00-83ff-11ea-84a1-d03e060da2d8.png)  
 문의 : kimch061279@gmail.com
