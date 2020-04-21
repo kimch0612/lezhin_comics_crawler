@@ -23,6 +23,11 @@ comics 바로 아래에 있는 폴더가 만화의 숫자 코드이며 그 안�
 https://cdn.lezhin.com/v2/comics/만화_숫자코드/episodes/에피_숫자코드/contents/scrolls/이미지_번호?access_token=토큰_값
 """
 
+erran = ("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
+         "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
+         "오류 제보는 더 나은 크롤러를 만드는데 큰 도움이 됩니다."
+         "개발자 이메일 주소 : kimch061279@gmail.com")
+
 jsonyn = input("설정 정보를 json 파일에서 불러오시겠습니까? (Y/N) : ")
 
 if jsonyn == 'Y' :
@@ -98,13 +103,10 @@ while True :
             break
         except TimeoutError:
             if err1 == 5:
-                print("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
-                      "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
-                      "오류 제보는 더 나은 크롤러를 만드는데 큰 도움이 됩니다.")
+                print(erran)
                 print("에러 내용 : TimeoutError")
                 print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nURL : ", end='')
                 print(url)
-                print("개발자 이메일 주소 : kimch061279@gmail.com")
                 driver.quit()
                 sys.exit(1)
             else :
@@ -167,9 +169,7 @@ while True :
                 break
             except IndexError:
                 if err2 == 5:
-                    print("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
-                          "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
-                          "오류 제보는 더 나은 크롤러를 만드는데 큰 도움이 됩니다.")
+                    print(erran)
                     print("에러 내용 : IndexError")
                     print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nlist : ", end='')
                     print(l)
@@ -177,7 +177,6 @@ while True :
                     print(name_code)
                     print("episode_code : ", end='')
                     print(episode_code)
-                    print("개발자 이메일 주소 : kimch061279@gmail.com")
                     driver.quit()
                     sys.exit(1)
                 else:
@@ -194,9 +193,7 @@ while True :
 
             except AttributeError:
                 if err2 == 5:
-                    print("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
-                          "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
-                          "오류 제보는 더 나은 크롤러를 만드는데 큰 도움이 됩니다.")
+                    print(erran)
                     print("에러 내용 : AttributeError")
                     print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nlist : ", end='')
                     print(l)
@@ -204,7 +201,6 @@ while True :
                     print(name_code)
                     print("episode_code : ", end='')
                     print(episode_code)
-                    print("개발자 이메일 주소 : kimch061279@gmail.com")
                     driver.quit()
                     sys.exit(1)
                 else:
