@@ -23,11 +23,25 @@ comics 바로 아래에 있는 폴더가 만화의 숫자 코드이며 그 안�
 https://cdn.lezhin.com/v2/comics/만화_숫자코드/episodes/에피_숫자코드/contents/scrolls/이미지_번호?access_token=토큰_값
 """
 
-id = input('레진코믹스 계정의 아이디를 입력하세요 : ')
-print("레진코믹스 계정의 패스워드를 입력하세요")
-pw = getpass.getpass("(비밀번호 입력 창에 입력해도 아무것도 보이지 않는 것은 정상입니다) : ") # 패스워드가 cmd 창에 띄워지는 것을 방지하기 위해 getpass를 사용
-token = input('레진 계정의 토큰 값을 입력하세요 : ')
-pdfyn = input("만화를 PDF 파일로 병합하시겠습니까? (Y/N) : ")
+jsonyn = input("설정 정보를 json 파일에서 불러오시겠습니까? (Y/N) : ")
+
+if jsonyn == 'Y' :
+    print("파일을 불러오는 중입니다...", end='')
+    with open('setting.json', 'rt', encoding='UTF8') as json_file:
+        json_data = json.load(json_file)
+        id = json_data["AccountID"]
+        pw = json_data["AccountPW"]
+        token = json_data["AccountToken"]
+        pdfyn = json_data["Pdfyn"]
+    print("완료")
+
+else :
+    id = input('레진코믹스 계정의 아이디를 입력하세요 : ')
+    print("레진코믹스 계정의 패스워드를 입력하세요")
+    pw = getpass.getpass("(비밀번호 입력 창에 입력해도 아무것도 보이지 않는 것은 정상입니다) : ") # 패스워드가 cmd 창에 띄워지는 것을 방지하기 위해 getpass를 사용
+    token = input('레진 계정의 토큰 값을 입력하세요 : ')
+    pdfyn = input("만화를 PDF 파일로 병합하시겠습니까? (Y/N) : ")
+
 print('레진코믹스 홈페이지에 로그인 중입니다. 잠시만 기다려주세요..')
 
 chrome_options = webdriver.ChromeOptions()
