@@ -32,6 +32,7 @@ crawler_selenium-ver : 해당 크롤러가 있는 경로에 Chrome Driver를 둬
 이후 cmd에서 python crawler_selenium-ver.py 를 입력해주면 실행 됨  
 ※ 크롬 드라이버의 다운로드 및 사용 방법은 검색 바람  
 setting.json : json 파일에 계정과 비밀번호, 토큰값, PDF 변환 여부 등 설정값을 저장해서 자동으로 불러올 수 있게 해주는 파일  
+위 파일은 Release 탭에 가면 받을 수 있으며,  
 Notepad++ 와 같은 메모장 프로그램을 설치해서 기본으로 적혀있는 값을 참고하여 자신의 정보에 맞게 수정을 해주면 됨  
 아래의 내용은 setting.json 파일에 있는 설정 값들에 대한 설명임  
 AccountID : 레진코믹스 id (이메일 형식)  
