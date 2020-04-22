@@ -11,6 +11,8 @@ import natsort
 import urllib.error
 from img2pdf import convert
 import sys
+from PyQt5 import uic
+from PyQt5.QtWidgets import QApplication
 
 erran = ("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
          "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
