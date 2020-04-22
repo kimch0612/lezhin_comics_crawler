@@ -19,7 +19,7 @@ erran = ("크롤러에 오류가 발생하여 다운로드를 재시작하려 �
 
 jsonyn = input("설정 정보를 json 파일에서 불러오시겠습니까? (Y/N) : ")
 
-if jsonyn == 'Y' and jsonyn == 'y':
+if jsonyn == 'Y' or jsonyn == 'y':
     print("파일을 불러오는 중입니다...", end='')
     with open('setting.json', 'rt', encoding='UTF8') as json_file:
         json_data = json.load(json_file)
@@ -201,7 +201,7 @@ while True :
             time.sleep(0.1)
         print('%s화 다운로드 완료.' % (a))
 
-    if pdfyn == 'Y' and pdfyn == 'y':
+    if pdfyn == 'Y' or pdfyn == 'y':
         h = 0
         g = 0
         print("만화를 PDF로 병합 중입니다..", end='')
