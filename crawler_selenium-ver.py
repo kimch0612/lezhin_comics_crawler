@@ -12,29 +12,39 @@ import urllib.error
 from img2pdf import convert
 import sys
 
+print("Welcome To Lezhin Comics Crawler - Selenium version.")
+print("Crawler Ver : Dev 3.1")
+
 erran = ("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
          "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
          "오류 제보는 더 나은 크롤러를 만드는데 큰 도움이 됩니다."
          "개발자 이메일 주소 : kimch061279@gmail.com")
 
-jsonyn = input("설정 정보를 json 파일에서 불러오시겠습니까? (Y/N) : ")
+while True:
+    jsonyn = input("설정 정보를 json 파일에서 불러오시겠습니까? (Y/N) : ")
+    if jsonyn == 'Y' or jsonyn == 'y':
+        print("파일을 불러오는 중입니다...", end='')
+        with open('setting.json', 'rt', encoding='UTF8') as json_file:
+            json_data = json.load(json_file)
+            id = json_data["AccountID"]
+            pw = json_data["AccountPW"]
+            token = json_data["AccountToken"]
+            pdfyn = json_data["Pdfyn"]
+        print("완료")
+        break
 
-if jsonyn == 'Y' or jsonyn == 'y':
-    print("파일을 불러오는 중입니다...", end='')
-    with open('setting.json', 'rt', encoding='UTF8') as json_file:
-        json_data = json.load(json_file)
-        id = json_data["AccountID"]
-        pw = json_data["AccountPW"]
-        token = json_data["AccountToken"]
-        pdfyn = json_data["Pdfyn"]
-    print("완료")
+    elif jsonyn == 'N' or jsonyn == 'n':
+        id = input('레진코믹스 계정의 아이디를 입력하세요 : ')
+        print("레진코믹스 계정의 패스워드를 입력하세요")
+        pw = getpass.getpass("(비밀번호 입력 창에 입력해도 아무것도 보이지 않는 것은 정상입니다) : ")
+        token = input('레진 계정의 토큰 값을 입력하세요 : ')
+        pdfyn = input("만화를 PDF 파일로 병합하시겠습니까? (Y/N) : ")
+        break
 
-else:
-    id = input('레진코믹스 계정의 아이디를 입력하세요 : ')
-    print("레진코믹스 계정의 패스워드를 입력하세요")
-    pw = getpass.getpass("(비밀번호 입력 창에 입력해도 아무것도 보이지 않는 것은 정상입니다) : ")
-    token = input('레진 계정의 토큰 값을 입력하세요 : ')
-    pdfyn = input("만화를 PDF 파일로 병합하시겠습니까? (Y/N) : ")
+    else:
+        print("단어를 다시 입력해주세요.")
+        continue
+
 
 print('레진코믹스 홈페이지에 로그인 중입니다. 잠시만 기다려주세요..')
 
@@ -151,10 +161,8 @@ while True :
                     print("에러 내용 : IndexError")
                     print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nlist : ", end='')
                     print(l)
-                    print("name_code : ", end='')
-                    print(name_code)
-                    print("episode_code : ", end='')
-                    print(episode_code)
+                    print("name_code : " + name_code)
+                    print("episode_code : " + episode_code)
                     driver.quit()
                     sys.exit(1)
                 else:
@@ -175,10 +183,8 @@ while True :
                     print("에러 내용 : AttributeError")
                     print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nlist : ", end='')
                     print(l)
-                    print("name_code : ", end='')
-                    print(name_code)
-                    print("episode_code : ", end='')
-                    print(episode_code)
+                    print("name_code : " + name_code)
+                    print("episode_code : " + episode_code)
                     driver.quit()
                     sys.exit(1)
                 else:
@@ -225,14 +231,19 @@ while True :
                 g += 1
         print("완료")
 
-    print('임시파일 삭제 중...')
+    print('임시파일 삭제 중...', end='')
     shutil.rmtree(r"temp")
     print('완료!!')
 
-    exi = input("크롤러를 종료할까요? (Y/N) : ")
-    if exi == 'Y' and exi == 'y':
-        driver.quit()
-        sys.exit(1)
-    else:
-        os.chdir('..')
-        continue
+    while True:
+        exi = input("크롤러를 종료할까요? (Y/N) : ")
+        if exi == 'Y' or exi == 'y':
+            driver.quit()
+            sys.exit(1)
+        elif exi == 'N' or exi == 'n':
+            os.chdir('..')
+            break
+        else:
+            print("문자를 다시 입력해주세요.")
+            continue
+    continue
