@@ -24,7 +24,7 @@ while True:
     jsonyn = input("설정 정보를 json 파일에서 불러오시겠습니까? (Y/N) : ")
     if jsonyn == 'Y' or jsonyn == 'y':
         print("파일을 불러오는 중입니다...", end='')
-        with open('setting.json', 'rt', encoding='UTF8') as json_file:
+        with open('tsetting.json', 'rt', encoding='UTF8') as json_file:
             json_data = json.load(json_file)
             id = json_data["AccountID"]
             pw = json_data["AccountPW"]
@@ -190,8 +190,10 @@ while True :
                     episode_code = 0
                     name_code = l[0][5]
                     episode_code = l[0][7]
+                    err2 += 1
                     break
                except IndexError:
+                    err2 += 1
                     continue
 
         except AttributeError:
