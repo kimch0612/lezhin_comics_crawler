@@ -175,7 +175,7 @@ while True :
             if err2 == 5:
                 print(erran)
                 print("에러 내용 : IndexError")
-                print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nlist : ", end='')
+                print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요ㅇ)\nlist : ", end='')
                 print(l)
                 print("name_code : " + name_code)
                 print("episode_code : " + episode_code)
