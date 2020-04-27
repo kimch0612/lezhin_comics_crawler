@@ -24,7 +24,7 @@ while True:
     jsonyn = input("설정 정보를 json 파일에서 불러오시겠습니까? (Y/N) : ")
     if jsonyn == 'Y' or jsonyn == 'y':
         print("파일을 불러오는 중입니다...", end='')
-        with open('tsetting.json', 'rt', encoding='UTF8') as json_file:
+        with open('account.json', 'rt', encoding='UTF8') as json_file:
             json_data = json.load(json_file)
             id = json_data["AccountID"]
             pw = json_data["AccountPW"]
@@ -175,7 +175,7 @@ while True :
             if err2 == 5:
                 print(erran)
                 print("에러 내용 : IndexError")
-                print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요ㅇ)\nlist : ", end='')
+                print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nlist : ", end='')
                 print(l)
                 print("name_code : " + name_code)
                 print("episode_code : " + episode_code)
