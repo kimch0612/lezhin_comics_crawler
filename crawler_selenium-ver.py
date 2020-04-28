@@ -13,37 +13,46 @@ from img2pdf import convert
 import sys
 
 print("Welcome To Lezhin Comics Crawler - Selenium version.")
-print("Crawler Ver : Dev 3.1")
+print("Crawler Ver : Dev 3.2")
 
 erran = ("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
          "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
          "오류 제보는 더 나은 크롤러를 만드는데 큰 도움이 됩니다."
          "개발자 이메일 주소 : kimch061279@gmail.com")
 
-while True:
-    jsonyn = input("설정 정보를 json 파일에서 불러오시겠습니까? (Y/N) : ")
-    if jsonyn == 'Y' or jsonyn == 'y':
-        print("파일을 불러오는 중입니다...", end='')
-        with open('a.json', 'rt', encoding='UTF8') as json_file:
-            json_data = json.load(json_file)
-            id = json_data["AccountID"]
-            pw = json_data["AccountPW"]
-            token = json_data["AccountToken"]
-            pdfyn = json_data["Pdfyn"]
-        print("완료")
-        break
+jsonyn = input("설정 정보를 json 파일에서 불러오시겠습니까? (Y/N) : ")
 
-    elif jsonyn == 'N' or jsonyn == 'n':
-        id = input('레진코믹스 계정의 아이디를 입력하세요 : ')
-        print("레진코믹스 계정의 패스워드를 입력하세요")
-        pw = getpass.getpass("(비밀번호 입력 창에 입력해도 아무것도 보이지 않는 것은 정상입니다) : ")
-        token = input('레진 계정의 토큰 값을 입력하세요 : ')
-        pdfyn = input("만화를 PDF 파일로 병합하시겠습니까? (Y/N) : ")
-        break
+try:
+    while True:
+        if jsonyn == 'Y' or jsonyn == 'y':
+            print("파일을 불러오는 중입니다...", end='')
+            with open('a.json', 'rt', encoding='UTF8') as json_file:
+                json_data = json.load(json_file)
+                id = json_data["AccountID"]
+                pw = json_data["AccountPW"]
+                token = json_data["AccountToken"]
+                pdfyn = json_data["Pdfyn"]
+            print("완료")
+            break
 
-    else:
-        print("단어를 다시 입력해주세요.")
-        continue
+        elif jsonyn == 'N' or jsonyn == 'n':
+            id = input('레진코믹스 계정의 아이디를 입력하세요 : ')
+            print("레진코믹스 계정의 패스워드를 입력하세요")
+            pw = getpass.getpass("(비밀번호 입력 창에 입력해도 아무것도 보이지 않는 것은 정상입니다) : ")
+            token = input('레진 계정의 토큰 값을 입력하세요 : ')
+            pdfyn = input("만화를 PDF 파일로 병합하시겠습니까? (Y/N) : ")
+            break
+
+        else:
+            print("단어를 다시 입력해주세요.")
+            continue
+
+except FileNotFoundError:
+    print("\njson 파일을 불러오는데 실패했습니다.\n"
+          "account.json 파일이 정확한 위치에 있는지, 파일이 손상되지는 않았는지, 이름이 틀리진 않았는지 확인해주세요.\n"
+          "크롤러를 종료합니다.\n")
+    sys.exit(1)
+
 
 
 print('레진코믹스 홈페이지에 로그인 중입니다. 잠시만 기다려주세요..')
@@ -201,14 +210,19 @@ while True :
             os.mkdir("%s화 - %s" % (a, title))
         except:
             pass
-
-        for i in range(1, cut + 1):
-            print('이미지 %s개 중' % (cut) + " %s" % (i) + '번째 이미지 다운로드 중...', end='')
-            urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (
-            name_code, episode_code, i, token), "%s화 - %s\\%s.png" % (a, title, i))
-            print("완료")
-            time.sleep(0.1)
-        print('%s화 다운로드 완료.' % (a))
+        try:
+            while True:
+                for i in range(1, cut + 1):
+                    print('이미지 %s개 중' % (cut) + " %s" % (i) + '번째 이미지 다운로드 중...', end='')
+                    urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (
+                    name_code, episode_code, i, token), "%s화 - %s\\%s.png" % (a, title, i))
+                    print("완료")
+                    time.sleep(0.1)
+                print('%s화 다운로드 완료.' % (a))
+                break
+        except urllib.error.HTTPError:
+            print("다운로드에 오류가 발생하여 재시도하는 중입니다.."
+                  "오류 내용 : urllib.error.HTTPError")
 
     if pdfyn == 'Y' or pdfyn == 'y':
         h = 0
