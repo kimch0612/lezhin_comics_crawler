@@ -13,7 +13,7 @@ from img2pdf import convert
 import sys
 
 print("Welcome To Lezhin Comics Crawler - Selenium version.")
-print("Crawler Ver : Dev 3.3")
+print("Crawler Ver : Dev 3.1")
 
 erran = ("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
          "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
@@ -24,7 +24,7 @@ while True:
     jsonyn = input("설정 정보를 json 파일에서 불러오시겠습니까? (Y/N) : ")
     if jsonyn == 'Y' or jsonyn == 'y':
         print("파일을 불러오는 중입니다...", end='')
-        with open('account.json', 'rt', encoding='UTF8') as json_file:
+        with open('a.json', 'rt', encoding='UTF8') as json_file:
             json_data = json.load(json_file)
             id = json_data["AccountID"]
             pw = json_data["AccountPW"]
@@ -109,123 +109,106 @@ while True :
                 print("오류 내용 : TimeoutError")
                 err1 += 1
                 continue
-        except IndexError:
-            print("\n크롤러에 오류가 발생했습니다.\n회차를 입력할 때 잘못 입력하지 않았는지 확인해주세요.\n크롤러를 종료합니다.")
-            print("오류 내용 : IndexError")
-            shutil.rmtree(r"temp")
-            driver.quit()
-            sys.exit(1)
 
-    while True:
-        try:
-            for a in range(int(sgw[0]), int(sgw[1]) + 1):
-                with open('temp\\%s.json' % (a), 'rt', encoding='UTF8') as json_file:
-                    json_data = json.load(json_file)
-                    json_number = json_data["cut"]
-                    json_title = json_data["title"]
-                    cut = json_number
-                    title = json_title
-            break
-        except KeyError:
-            print("\n임시파일을 분석하는데 오류가 발생했습니다.\n회차를 잘못 입력했거나, 존재하지 않는 회차를 입력하진 않았는지 확인해주세요.\n크롤러를 종료합니다.")
-            print("오류 내용 : KeyError")
-            shutil.rmtree(r"temp")
-            driver.quit()
-            sys.exit(1)
+    for a in range(int(sgw[0]), int(sgw[1])+1):
+        with open('temp\\%s.json'%(a), 'rt', encoding='UTF8') as json_file:
+            json_data = json.load(json_file)
+            json_number = json_data["cut"]
+            json_title = json_data["title"]
+            cut = json_number
+            title = json_title
 
-    if title.find(":") != -1:
-        title = title.replace(":", "")
-    if title.find("\"") != -1:
-        title = title.replace("\"", "")
-    if title.find("\\") != -1:
-        title = title.replace("\\", "")
-    if title.find("/") != -1:
-        title = title.replace("/", "")
-    if title.find("*") != -1:
-        title = title.replace("*", "")
-    if title.find("?") != -1:
-        title = title.replace("?", "")
-    if title.find("<") != -1:
-        title = title.replace("<", "")
-    if title.find(">") != -1:
-        title = title.replace(">", "")
-    if title.find("|") != -1:
-        title = title.replace("|", "")
-    titlel.append(title)
-    cutl.append(cut)
-    print("완료")
+        if title.find(":") != -1:
+            title = title.replace(":", "")
+        if title.find("\"") != -1:
+            title = title.replace("\"", "")
+        if title.find("\\") != -1:
+            title = title.replace("\\", "")
+        if title.find("/") != -1:
+            title = title.replace("/", "")
+        if title.find("*") != -1:
+            title = title.replace("*", "")
+        if title.find("?") != -1:
+            title = title.replace("?", "")
+        if title.find("<") != -1:
+            title = title.replace("<", "")
+        if title.find(">") != -1:
+            title = title.replace(">", "")
+        if title.find("|") != -1:
+            title = title.replace("|", "")
+        titlel.append(title)
+        cutl.append(cut)
+        print("완료")
 
-    print("만화 다운로드를 준비 중입니다..")
-    err2 = 0
-    while True:
-        try:
-            url = 'https://www.lezhin.com/ko/comic/%s/%s' % (name, a)
-            driver.get(url)
-            time.sleep(3)
+        print("만화 다운로드를 준비 중입니다..")
+        err2 = 0
+        while True:
+            try:
+                url = 'https://www.lezhin.com/ko/comic/%s/%s' % (name, a)
+                driver.get(url)
+                time.sleep(3)
 
-            soup = BeautifulSoup(driver.page_source, "html.parser")
-            div_tag = soup.find("div", id="scroll-list")
-            l = list()
-            for img in div_tag.find_all("img"):
-                l.append(img.get("src").split("/"))
-            name_code = l[1][5]
-            episode_code = l[1][7]
-            break
-        except IndexError:
-            if err2 == 5:
-                print(erran)
-                print("에러 내용 : IndexError")
-                print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nlist : ", end='')
-                print(l)
-                print("name_code : " + name_code)
-                print("episode_code : " + episode_code)
-                shutil.rmtree(r"temp")
-                driver.quit()
-                sys.exit(1)
-            else:
-               try :
-                    print("****오류가 발생하여 다운로드를 다른 방식으로 시도하는 중입니다..****")
-                    print("오류 내용 : IndexError")
-                    name_code = 0
-                    episode_code = 0
-                    name_code = l[0][5]
-                    episode_code = l[0][7]
-                    err2 += 1
-                    break
-               except IndexError:
+                soup = BeautifulSoup(driver.page_source, "html.parser")
+                div_tag = soup.find("div", id="scroll-list")
+                l = list()
+                for img in div_tag.find_all("img"):
+                    l.append(img.get("src").split("/"))
+                name_code = l[1][5]
+                episode_code = l[1][7]
+                break
+            except IndexError:
+                if err2 == 5:
+                    print(erran)
+                    print("에러 내용 : IndexError")
+                    print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nlist : ", end='')
+                    print(l)
+                    print("name_code : " + name_code)
+                    print("episode_code : " + episode_code)
+                    shutil.rmtree(r"temp")
+                    driver.quit()
+                    sys.exit(1)
+                else:
+                   try :
+                        print("****오류가 발생하여 다운로드를 다른 방식으로 시도하는 중입니다..****")
+                        print("오류 내용 : IndexError")
+                        name_code = 0
+                        episode_code = 0
+                        name_code = l[0][5]
+                        episode_code = l[0][7]
+                        break
+                   except IndexError:
+                        continue
+
+            except AttributeError:
+                if err2 == 5:
+                    print(erran)
+                    print("에러 내용 : AttributeError")
+                    print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nlist : ", end='')
+                    print(l)
+                    print("name_code : " + name_code)
+                    print("episode_code : " + episode_code)
+                    shutil.rmtree(r"temp")
+                    driver.quit()
+                    sys.exit(1)
+                else:
+                    print("****크롤러에 오류가 발생하여 다운로드를 재시작 하는 중입니다..****")
+                    print("오류 내용 : AttributeError")
                     err2 += 1
                     continue
 
-        except AttributeError:
-            if err2 == 5:
-                print(erran)
-                print("에러 내용 : AttributeError")
-                print("(아래 항목에선 토큰 값을 꼭 제거하고 보내주세요)\nlist : ", end='')
-                print(l)
-                print("name_code : " + name_code)
-                print("episode_code : " + episode_code)
-                shutil.rmtree(r"temp")
-                driver.quit()
-                sys.exit(1)
-            else:
-                print("****크롤러에 오류가 발생하여 다운로드를 재시작 하는 중입니다..****")
-                print("오류 내용 : AttributeError")
-                err2 += 1
-                continue
+        print('-----%s화 다운로드를 시작합니다.-----\n%s화의 총 이미지 수는 %s장입니다.' % (a, a, cut))
+        try:
+            os.mkdir("%s화 - %s" % (a, title))
+        except:
+            pass
 
-    print('-----%s화 다운로드를 시작합니다.-----\n%s화의 총 이미지 수는 %s장입니다.' % (a, a, cut))
-    try:
-        os.mkdir("%s화 - %s" % (a, title))
-    except:
-        pass
-
-    for i in range(1, cut + 1):
-        print('이미지 %s개 중' % (cut) + " %s" % (i) + '번째 이미지 다운로드 중...', end='')
-        urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (
-        name_code, episode_code, i, token), "%s화 - %s\\%s.png" % (a, title, i))
-        print("완료")
-        time.sleep(0.1)
-    print('%s화 다운로드 완료.' % (a))
+        for i in range(1, cut + 1):
+            print('이미지 %s개 중' % (cut) + " %s" % (i) + '번째 이미지 다운로드 중...', end='')
+            urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (
+            name_code, episode_code, i, token), "%s화 - %s\\%s.png" % (a, title, i))
+            print("완료")
+            time.sleep(0.1)
+        print('%s화 다운로드 완료.' % (a))
 
     if pdfyn == 'Y' or pdfyn == 'y':
         h = 0
