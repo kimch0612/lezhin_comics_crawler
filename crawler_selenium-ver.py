@@ -12,8 +12,8 @@ import urllib.error
 from img2pdf import convert
 import sys
 
-print("Welcome To Lezhin Comics Crawler - Selenium version.")
-print("Crawler Ver : Dev 3.2")
+print("Welcome To Lezhin Comics Crawler - Selenium version.\n"
+      "Crawler Ver : Dev 3.3")
 
 erran = ("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
          "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
@@ -58,19 +58,19 @@ except FileNotFoundError:
 print('레진코믹스 홈페이지에 로그인 중입니다. 잠시만 기다려주세요..')
 
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('log-level=2')
 chrome_options.add_argument('headless')
-chrome_options.add_argument('window-size=1280x720')
+chrome_options.add_argument('log-level=2')
+chrome_options.add_argument('window-size=1270x820')
 chrome_options.add_argument("disable-gpu")
 driver = webdriver.Chrome('chromedriver.exe', chrome_options=chrome_options)
 driver.get('https://www.lezhin.com/ko/login')
-delay = 3
+delay = 2
 driver.implicitly_wait(delay)
 
 driver.find_element_by_id('login-email').send_keys(id)
 driver.find_element_by_id('login-password').send_keys(pw)
 driver.find_element_by_xpath('//*[@id="login-form"]/div[4]/button').click()
-time.sleep(3)
+time.sleep(2)
 
 while True :
     name = input('만화의 영어 이름을 입력하세요 : ')
@@ -118,6 +118,12 @@ while True :
                 print("오류 내용 : TimeoutError")
                 err1 += 1
                 continue
+        except IndexError:
+            print("\n크롤러에 오류가 발생했습니다.\n회차를 입력할 때 잘못 입력하지 않았는지 확인해주세요.\n크롤러를 종료합니다.")
+            print("오류 내용 : IndexError")
+            shutil.rmtree(r"temp")
+            driver.quit()
+            sys.exit(1)
 
     for a in range(int(sgw[0]), int(sgw[1])+1):
         with open('temp\\%s.json'%(a), 'rt', encoding='UTF8') as json_file:
@@ -185,7 +191,9 @@ while True :
                         name_code = l[0][5]
                         episode_code = l[0][7]
                         break
+                        err2 += 1
                    except IndexError:
+                        err2 += 1
                         continue
 
             except AttributeError:
