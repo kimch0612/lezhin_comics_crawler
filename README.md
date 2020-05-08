@@ -6,7 +6,7 @@
 crawler_selenium-ver : 구입했거나 무료인 만화는 모두 다운로드 가능 (* 복수 다운로드 가능)  
 (개발 중단) crawler_new-ver : 2017년 3월 10일 이후에 연재된 만화 크롤러 (* 복수 다운로드 불가능)  
 (개발 중단) crawler_old-ver : 2017년 3월 10일 이전에 연재됐던 만화 크롤러 (* 복수 다운로드 가능)  
-※ 이 크롤러를 사용하려면 requests, PIL, [bs4, natsort, Selenium(셀레니움 크롤러만 해당)] 모듈을 설치해야 함  
+※ 이 크롤러를 사용하려면 requests, PIL, [tqdm, bs4, natsort, Selenium(셀레니움 크롤러만 해당)] 모듈을 설치해야 함  
 
 구동이 확인된 환경  
 Windows10 64bit 1909 버전, Python 3.8.2   
