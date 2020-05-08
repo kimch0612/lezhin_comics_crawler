@@ -14,7 +14,7 @@ import sys
 from tqdm import tqdm
 
 print("Welcome To Lezhin Comics Crawler - Selenium version.\n"
-      "Crawler Ver : Dev 3.5")
+      "Crawler Ver : Dev 3.6")
 
 erran = ("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
          "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
@@ -22,13 +22,14 @@ erran = ("크롤러에 오류가 발생하여 다운로드를 재시작하려 �
          "개발자 이메일 주소 : kimch061279@gmail.com")
 
 if os.path.isfile("account.json"):
-    print("json 파일을 발견했습니다.\n설정 값을 자동으로 불러오겠습니다.")
+    print("json 파일에서 설정값을 불러오는 중입니다...", end="")
     with open('account.json', 'rt', encoding='UTF8') as json_file:
         json_data = json.load(json_file)
         id = json_data["AccountID"]
         pw = json_data["AccountPW"]
         token = json_data["AccountToken"]
         pdfyn = json_data["Pdfyn"]
+    print("완료")
 
 elif not os.path.isfile("account.json"):
     id = input('레진코믹스 계정의 아이디를 입력하세요 : ')
@@ -37,14 +38,14 @@ elif not os.path.isfile("account.json"):
     token = input('레진 계정의 토큰 값을 입력하세요 : ')
     pdfyn = input("만화를 PDF 파일로 병합하시겠습니까? (Y/N) : ")
 
-print('레진코믹스 홈페이지에 로그인 중입니다. 잠시만 기다려주세요..')
+print('****레진코믹스 홈페이지에 로그인 중입니다.****\n잠시만 기다려주세요..')
 
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('headless')
-chrome_options.add_argument('log-level=2')
-chrome_options.add_argument('window-size=1270x820')
-chrome_options.add_argument("disable-gpu")
-driver = webdriver.Chrome('chromedriver.exe', chrome_options=chrome_options)
+options = webdriver.ChromeOptions()
+options.add_argument('headless')
+options.add_argument('log-level=2')
+options.add_argument('window-size=1280x720')
+options.add_argument("disable-gpu")
+driver = webdriver.Chrome('chromedriver.exe', options=options)
 driver.get('https://www.lezhin.com/ko/login')
 delay = 2
 driver.implicitly_wait(delay)
@@ -73,7 +74,7 @@ while True :
         pass
 
     os.chdir(name)
-    print("만화 정보를 다운로드 및 분석 중입니다...")
+    print("만화를 다운로드하기 위해 준비 중입니다..", end="")
     err1 = 0
     while True:
         try:
@@ -106,7 +107,7 @@ while True :
             shutil.rmtree(r"temp")
             driver.quit()
             sys.exit(1)
-
+    print("완료")
     for a in range(int(sgw[0]), int(sgw[1])+1):
         with open('temp\\%s.json'%(a), 'rt', encoding='UTF8') as json_file:
             json_data = json.load(json_file)
@@ -136,7 +137,6 @@ while True :
         titlel.append(title)
         cutl.append(cut)
 
-        print("만화 다운로드를 준비 중입니다..")
         err2 = 0
         while True:
             try:
@@ -165,8 +165,6 @@ while True :
                     sys.exit(1)
                 else:
                    try :
-                        print("****오류가 발생하여 다운로드를 다른 방식으로 시도하는 중입니다..****")
-                        print("오류 내용 : IndexError")
                         name_code = 0
                         episode_code = 0
                         name_code = l[0][5]
@@ -189,12 +187,9 @@ while True :
                     driver.quit()
                     sys.exit(1)
                 else:
-                    print("****크롤러에 오류가 발생하여 다운로드를 재시작 하는 중입니다..****")
-                    print("오류 내용 : AttributeError")
                     err2 += 1
                     continue
 
-        print('-----%s화 다운로드를 시작합니다.-----' % (a))
         try:
             os.mkdir("%s화 - %s" % (a, title))
         except:
@@ -205,7 +200,6 @@ while True :
                     urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (
                     name_code, episode_code, i, token), "%s화 - %s\\%s.png" % (a, title, i))
                     time.sleep(0.1)
-                print('%s화 다운로드 완료.' % (a))
                 break
         except urllib.error.HTTPError:
             print("다운로드에 오류가 발생하여 재시도하는 중입니다.."
