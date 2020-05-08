@@ -6,7 +6,7 @@
 crawler_selenium-ver : 구입했거나 무료인 만화는 모두 다운로드 가능 (* 복수 다운로드 가능)  
 (개발 중단) crawler_new-ver : 2017년 3월 10일 이후에 연재된 만화 크롤러 (* 복수 다운로드 불가능)  
 (개발 중단) crawler_old-ver : 2017년 3월 10일 이전에 연재됐던 만화 크롤러 (* 복수 다운로드 가능)  
-※ 이 크롤러를 사용하려면 requests, PIL, [bs4, natsort, Selenium(셀레니움 크롤러만 해당)] 모듈을 설치해야 함  
+※ 이 크롤러를 사용하려면 requests, PIL, [tqdm, bs4, natsort, Selenium(셀레니움 크롤러만 해당)] 모듈을 설치해야 함  
 
 구동이 확인된 환경  
 Windows10 64bit 1909 버전, Python 3.8.2   
@@ -44,6 +44,5 @@ Pdfyn : 만화를 PDF로 병합할지 여부
 ![KakaoTalk_20200421_183846174](https://user-images.githubusercontent.com/10193967/79850899-82a56d00-83ff-11ea-9940-3724fc2d9b13.png)  
 
 # 스크린샷  
-![스크린샷(45)](https://user-images.githubusercontent.com/10193967/78167958-462ec300-748a-11ea-87a5-bd110bad7e96.png)  
-![KakaoTalk_20200421_183524560](https://user-images.githubusercontent.com/10193967/79850882-7caf8c00-83ff-11ea-84a1-d03e060da2d8.png)  
+![KakaoTalk_20200508_222621117](https://user-images.githubusercontent.com/10193967/81410104-2c645800-917b-11ea-8ce3-4d9b68471d65.png) 
 문의 : kimch061279@gmail.com
