@@ -44,5 +44,5 @@ Pdfyn : 만화를 PDF로 병합할지 여부
 ![KakaoTalk_20200421_183846174](https://user-images.githubusercontent.com/10193967/79850899-82a56d00-83ff-11ea-9940-3724fc2d9b13.png)  
 
 # 스크린샷  
-![KakaoTalk_20200508_175747384](https://user-images.githubusercontent.com/10193967/81390283-2019d400-9156-11ea-9380-947962cac3d5.png)   
+![KakaoTalk_20200508_222621117](https://user-images.githubusercontent.com/10193967/81410104-2c645800-917b-11ea-8ce3-4d9b68471d65.png) 
 문의 : kimch061279@gmail.com
