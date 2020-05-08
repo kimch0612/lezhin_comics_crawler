@@ -11,9 +11,10 @@ import natsort
 import urllib.error
 from img2pdf import convert
 import sys
+from tqdm import tqdm
 
 print("Welcome To Lezhin Comics Crawler - Selenium version.\n"
-      "Crawler Ver : Dev 3.4")
+      "Crawler Ver : Dev 3.5")
 
 erran = ("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
          "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
@@ -22,14 +23,14 @@ erran = ("크롤러에 오류가 발생하여 다운로드를 재시작하려 �
 
 if os.path.isfile("account.json"):
     print("json 파일을 발견했습니다.\n설정 값을 자동으로 불러오겠습니다.")
-    with open('a.json', 'rt', encoding='UTF8') as json_file:
+    with open('account.json', 'rt', encoding='UTF8') as json_file:
         json_data = json.load(json_file)
         id = json_data["AccountID"]
         pw = json_data["AccountPW"]
         token = json_data["AccountToken"]
         pdfyn = json_data["Pdfyn"]
 
-elif not os.path.isfile("a.json"):
+elif not os.path.isfile("account.json"):
     id = input('레진코믹스 계정의 아이디를 입력하세요 : ')
     print("레진코믹스 계정의 패스워드를 입력하세요")
     pw = getpass.getpass("(비밀번호 입력 창에 입력해도 아무것도 보이지 않는 것은 정상입니다) : ")
@@ -72,7 +73,7 @@ while True :
         pass
 
     os.chdir(name)
-    print("만화 정보를 다운로드 및 분석 중입니다...", end="")
+    print("만화 정보를 다운로드 및 분석 중입니다...")
     err1 = 0
     while True:
         try:
@@ -134,7 +135,6 @@ while True :
             title = title.replace("|", "")
         titlel.append(title)
         cutl.append(cut)
-        print("완료")
 
         print("만화 다운로드를 준비 중입니다..")
         err2 = 0
@@ -194,18 +194,16 @@ while True :
                     err2 += 1
                     continue
 
-        print('-----%s화 다운로드를 시작합니다.-----\n%s화의 총 이미지 수는 %s장입니다.' % (a, a, cut))
+        print('-----%s화 다운로드를 시작합니다.-----' % (a))
         try:
             os.mkdir("%s화 - %s" % (a, title))
         except:
             pass
         try:
             while True:
-                for i in range(1, cut + 1):
-                    print('이미지 %s개 중' % (cut) + " %s" % (i) + '번째 이미지 다운로드 중...', end='')
+                for i in tqdm(range(1, cut + 1), desc="%s화" %(a)):
                     urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (
                     name_code, episode_code, i, token), "%s화 - %s\\%s.png" % (a, title, i))
-                    print("완료")
                     time.sleep(0.1)
                 print('%s화 다운로드 완료.' % (a))
                 break
