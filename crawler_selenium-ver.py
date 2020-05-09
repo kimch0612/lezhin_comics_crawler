@@ -1,6 +1,3 @@
-from selenium import webdriver
-from bs4 import BeautifulSoup
-from requests import get
 import time
 import getpass
 import os
@@ -9,16 +6,20 @@ import urllib.request
 import shutil
 import natsort
 import urllib.error
-from img2pdf import convert
 import sys
+import chromedriver_autoinstaller
+from selenium import webdriver
+from bs4 import BeautifulSoup
+from requests import get
 from tqdm import tqdm
+from img2pdf import convert
 
 print("Welcome To Lezhin Comics Crawler - Selenium version.\n"
-      "Crawler Ver : Dev 3.6")
+      "Crawler Ver : Dev 4.1")
 
 erran = ("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
          "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
-         "오류 제보는 더 나은 크롤러를 만드는데 큰 도움이 됩니다."
+         "오류 제보는 더 나은 크롤러를 만드는데 큰 도움이 됩니다.\n"
          "개발자 이메일 주소 : kimch061279@gmail.com")
 
 if os.path.isfile("account.json"):
@@ -38,12 +39,16 @@ elif not os.path.isfile("account.json"):
     token = input('레진 계정의 토큰 값을 입력하세요 : ')
     pdfyn = input("만화를 PDF 파일로 병합하시겠습니까? (Y/N) : ")
 
+print("Chrome Driver를 다운로드 하는 중입니다..", end='')
+chromedriver_autoinstaller.install()
+print("완료")
+
 print('****레진코믹스 홈페이지에 로그인 중입니다.****\n잠시만 기다려주세요..')
 
 options = webdriver.ChromeOptions()
 options.add_argument('headless')
 options.add_argument('log-level=2')
-options.add_argument('window-size=1280x720')
+options.add_argument('window-size=1080x1920')
 options.add_argument("disable-gpu")
 driver = webdriver.Chrome('chromedriver.exe', options=options)
 driver.get('https://www.lezhin.com/ko/login')
@@ -107,7 +112,8 @@ while True :
             shutil.rmtree(r"temp")
             driver.quit()
             sys.exit(1)
-    print("완료")
+    print("완료\n"
+          "(참고) 제목으로 사용할 수 없는 단어는 자동으로 제거된 상태로 저장됩니다.")
     for a in range(int(sgw[0]), int(sgw[1])+1):
         with open('temp\\%s.json'%(a), 'rt', encoding='UTF8') as json_file:
             json_data = json.load(json_file)
@@ -128,6 +134,8 @@ while True :
             title = title.replace("*", "")
         if title.find("?") != -1:
             title = title.replace("?", "")
+        if title.find("？") != -1:
+            title = title.replace("？", "")
         if title.find("<") != -1:
             title = title.replace("<", "")
         if title.find(">") != -1:
@@ -200,12 +208,13 @@ while True :
                     urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (
                     name_code, episode_code, i, token), "%s화 - %s\\%s.png" % (a, title, i))
                     time.sleep(0.1)
+                print("\r")
                 break
         except urllib.error.HTTPError:
             print("다운로드에 오류가 발생하여 재시도하는 중입니다.."
                   "오류 내용 : urllib.error.HTTPError")
 
-    if pdfyn == 'Y' or pdfyn == 'y':
+    if pdfyn == 'Y' or pdfyn == 'y' or pdfyn == '':
         h = 0
         g = 0
         print("만화를 PDF로 병합 중입니다..", end='')
@@ -235,7 +244,7 @@ while True :
 
     while True:
         exi = input("크롤러를 종료할까요? (Y/N) : ")
-        if exi == 'Y' or exi == 'y':
+        if exi == 'Y' or exi == 'y' or exi == '':
             driver.quit()
             sys.exit(1)
         elif exi == 'N' or exi == 'n':
