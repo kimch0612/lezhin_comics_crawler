@@ -4,7 +4,7 @@
 ****Any responsibility for using this crawler is the responsibility of the user who used it.****  
 
 (Development discontinued) crawler_new-ver : Comic crawler that published after March 10, 2017 (* Multiple downloads not possible)  
-(Development discontinued) crawler_old-ver : 2Comic crawler that published after before 10, 2017 (* Multiple downloads possible)  
+(Development discontinued) crawler_old-ver : Comic crawler that published after before 10, 2017 (* Multiple downloads possible)  
 crawler_selenium-ver : All purchased or free comics can be downloaded (* Multiple downloads possible)  
 ※ To use this crawler, you need to install the [requests, chromedriver_autoinstaller, tqdm, bs4, natsort, Selenium] modules  
 
