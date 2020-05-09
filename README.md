@@ -43,4 +43,4 @@ Pdfyn : Whether to merge comics into PDFs
 
 # Screenshot  
 ![KakaoTalk_20200508_222621117](https://user-images.githubusercontent.com/10193967/81410104-2c645800-917b-11ea-8ce3-4d9b68471d65.png) 
-문의 : kimch061279@gmail.com
+contact me : kimch061279@gmail.com
