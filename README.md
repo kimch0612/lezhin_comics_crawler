@@ -27,11 +27,8 @@ https://cdn.lezhin.com/v2/comics/(만화_번호)/episodes/(에피소드_번호)/
 
 # 크롤러 사용 방법  
 chawler_old(new)-ver : cmd에서 python chawler_old-ver.py (또는 chawler_new-ver.py) 를 입력해주면 실행 됨  
-crawler_selenium-ver : 해당 크롤러가 있는 경로에 Chrome Driver를 둬야 함  
-(ex. C:\에 crawler_selenium-ver.py 파일이 있다면 chromedriver.exe 파일도 C:\에 있어야 함)  
-이후 cmd에서 python crawler_selenium-ver.py 를 입력해주면 실행 됨  
-※ 크롬 드라이버의 다운로드 및 사용 방법은 검색 바람  
-만화의 영어 이름 : URL에서 확인 가능합니다.  
+crawler_selenium-ver : 필수 모듈과 크롬을 설치하고 cmd에서 python crawler_selenium-ver.py 를 입력해주면 실행 됨  
+만화의 영어 이름 : URL에서 확인 가능함 
 (ex. 만화 링크가 https://www.lezhin.com/ko/comic/xxxxx 라면, xxxxx가 영어 이름)  
 account.json : json 파일에 계정과 비밀번호, 토큰값, PDF 변환 여부 등 설정값을 저장해서 자동으로 불러올 수 있게 해주는 파일  
 위 파일은 Release 탭에 가면 받을 수 있으며,  
