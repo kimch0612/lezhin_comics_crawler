@@ -27,8 +27,8 @@ In the case of episode numbers, just because they came out more recently doesn't
 The method to find out the number of cuts of the episode is the same as the method above.  
 
 # How to use it
-chawler_old(new)-ver : Run by typing python chawler_old-ver.py (or chawler_new-ver.py) in cmd.  
-crawler_selenium-ver : Install the required modules and chrome and run python crawler_selenium-ver.py in cmd.  
+chawler_old(new)-ver : Run by typing 'python chawler_old-ver.py' (or chawler_new-ver.py) in cmd.  
+crawler_selenium-ver : Install the required modules and chrome and run 'python crawler_selenium-ver.py' in cmd.  
 English name of comics : Can find it in the URL.
 (ex. If comics url is https://www.lezhin.com/ko/comic/xxxxx, 'xxxxx' is English name of comics)  
 account.json : You can save account names and passwords, tokens and whether to convert PDFs and recalled automatically when use crawler. 
