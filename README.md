@@ -16,7 +16,7 @@ crawler_selenium-ver : 구입했거나 무료인 만화는 모두 다운로드 �
 ※ 이 크롤러를 사용하려면 [requests, chromedriver_autoinstaller, tqdm, bs4, natsort, Selenium] 모듈을 설치해야 함  
 
 Tested environment  
-Windows10 64bit 1909 version, Python 3.8.2 
+Windows10 64bit 1909 version, Python 3.8.2  
 구동이 확인된 환경  
 Windows10 64bit 1909 버전, Python 3.8.2   
 
