@@ -5,7 +5,7 @@
 
 (Development discontinued) crawler_new-ver : Comic crawler that published after March 10, 2017 (* Multiple downloads not possible)  
 (Development discontinued) crawler_old-ver : Comic crawler that published after before 10, 2017 (* Multiple downloads possible)  
-crawler_selenium-ver : All purchased or free comics can be downloaded (* Multiple downloads possible)  
+crawler : All purchased or free comics can be downloaded (* Multiple downloads possible)  
 ※ To use this crawler, you need to install the [requests, chromedriver_autoinstaller, tqdm, bs4, natsort, Selenium] modules  
 
 Tested environment  
@@ -27,8 +27,8 @@ In the case of episode numbers, just because they came out more recently doesn't
 The method to find out the number of cuts of the episode is the same as the method above.  
 
 # How to use it
-chawler_old(new)-ver : Run by typing python chawler_old-ver.py (or chawler_new-ver.py) in cmd.  
-crawler_selenium-ver : Install the required modules and chrome and run python crawler_selenium-ver.py in cmd.  
+chawler_old(new)-ver : Run by typing 'python chawler_old-ver.py' (or chawler_new-ver.py) in cmd.  
+crawler : Install the required modules and chrome and run 'python crawler_selenium-ver.py' in cmd.  
 English name of comics : Can find it in the URL.
 (ex. If comics url is https://www.lezhin.com/ko/comic/xxxxx, 'xxxxx' is English name of comics)  
 account.json : You can save account names and passwords, tokens and whether to convert PDFs and recalled automatically when use crawler. 
@@ -47,7 +47,7 @@ Pdfyn : Whether to merge comics into PDFs
 
 (개발 중단) crawler_new-ver : 2017년 3월 10일 이후에 연재된 만화 크롤러 (* 복수 다운로드 불가능)  
 (개발 중단) crawler_old-ver : 2017년 3월 10일 이전에 연재됐던 만화 크롤러 (* 복수 다운로드 가능)  
-crawler_selenium-ver : 구입했거나 무료인 만화는 모두 다운로드 가능 (* 복수 다운로드 가능)  
+crawler : 구입했거나 무료인 만화는 모두 다운로드 가능 (* 복수 다운로드 가능)  
 ※ 이 크롤러를 사용하려면 [requests, chromedriver_autoinstaller, tqdm, bs4, natsort, Selenium] 모듈을 설치해야 함  
 
 구동이 확인된 환경  
@@ -69,7 +69,7 @@ https://cdn.lezhin.com/v2/comics/(만화_번호)/episodes/(에피소드_번호)/
 
 # 크롤러 사용 방법  
 chawler_old(new)-ver : cmd에서 python chawler_old-ver.py (또는 chawler_new-ver.py) 를 입력해주면 실행 됨  
-crawler_selenium-ver : 필수 모듈과 크롬을 설치하고 cmd에서 python crawler_selenium-ver.py 를 입력해주면 실행 됨  
+crawler : 필수 모듈과 크롬을 설치하고 cmd에서 python crawler_selenium-ver.py 를 입력해주면 실행 됨  
 만화의 영어 이름 : URL에서 확인 가능함 
 (ex. 만화 링크가 https://www.lezhin.com/ko/comic/xxxxx 라면, xxxxx가 영어 이름)  
 account.json : json 파일에 계정과 비밀번호, 토큰값, PDF 변환 여부 등 설정값을 저장해서 자동으로 불러올 수 있게 해주는 파일  
