@@ -9,7 +9,7 @@ crawler : All purchased or free comics can be downloaded (* Multiple downloads p
 ※ To use this crawler, you need to install the [requests, chromedriver_autoinstaller, tqdm, bs4, natsort, Selenium] modules  
 
 Tested environment  
-Windows10 64bit 1909 version, Python 3.8.2  
+Windows10 64bit 2004 version, Python 3.8.3 
 
 # Site structure  
 LezinComics' cdn structure is as follows  
@@ -51,7 +51,7 @@ crawler : 구입했거나 무료인 만화는 모두 다운로드 가능 (* 복�
 ※ 이 크롤러를 사용하려면 [requests, chromedriver_autoinstaller, tqdm, bs4, natsort, Selenium] 모듈을 설치해야 함  
 
 구동이 확인된 환경  
-Windows10 64bit 1909 버전, Python 3.8.2   
+Windows10 64bit 2004 Python 3.8.3  
 
 # 사이트 구조  
 레진코믹스의 cdn 구조는 다음과 같다  
