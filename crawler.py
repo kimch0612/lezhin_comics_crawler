@@ -15,7 +15,7 @@ from tqdm import tqdm
 from img2pdf import convert
 
 print("Welcome To Lezhin Comics Crawler - Selenium version.\n"
-      "Crawler Ver : Dev 4.4")
+      "Crawler Ver : Dev 4.5")
 
 erran = ("크롤러에 오류가 발생하여 다운로드를 재시작하려 했으나, 해결이 불가한 오류가 발생하여 크롤러를 종료합니다.\n"
          "만약 지속적으로 동일한 오류가 발생한다면 아래의 내용들을 복사하여 에러 코드를 개발자에게 보내주세요.\n"
@@ -113,7 +113,9 @@ while True :
             driver.quit()
             sys.exit(1)
     print("완료\n"
-          "(참고) 제목으로 사용할 수 없는 단어는 자동으로 제거된 상태로 저장됩니다.")
+          "(안내) 제목으로 사용할 수 없는 단어는 자동으로 제거된 상태로 저장됩니다.\n"
+          "다운로드 특성상 시간이 오래 걸릴 수 있습니다.\n"
+          "프로그램이 멈춘 것은 아니니 시간이 걸리더라도 기다려주세요.\n")
     for a in range(int(sgw[0]), int(sgw[1])+1):
         with open('temp\\%s.json'%(a), 'rt', encoding='UTF8') as json_file:
             json_data = json.load(json_file)
@@ -180,7 +182,6 @@ while True :
                         name_code = l[0][5]
                         episode_code = l[0][7]
                         break
-                        err2 += 1
                    except IndexError:
                         err2 += 1
                         continue
@@ -209,8 +210,7 @@ while True :
                 for i in tqdm(range(1, cut + 1), desc="%s화" %(a)):
                     urllib.request.urlretrieve("https://cdn.lezhin.com/v2/comics/%s/episodes/%s/contents/scrolls/%s?access_token=%s" % (
                     name_code, episode_code, i, token), "%s화 - %s\\%s.png" % (a, title, i))
-                    time.sleep(0.1)
-                print("\r")
+                    time.sleep(0.01)
                 break
         except urllib.error.HTTPError:
             print("다운로드에 오류가 발생하여 재시도하는 중입니다.."
