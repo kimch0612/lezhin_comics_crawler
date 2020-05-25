@@ -18,10 +18,10 @@ http://cdn.lezhin.com/episodes/(comic_name)/(episode)/contents/(image_number)?ac
 http://cdn.lezhin.com/episodes/(comic_name)/(episode)?access_token=(token) // can find the number of episode cuts  
 http://cdn.lezhin.com/episodes/(comic_name)?access_token=(token) // can find the number of episodes in the comic and the number of cuts in the episodes.  
 2nd and 3rd links are composed in json format.  
-The above method shows 404 error for comics uploaded after March 10, 2017 or paid comics that have not been purchased.  
+The above method shows 404 error for comics uploaded after March 10, 2017 or not paid comics.  
 ****Comic that published after March 10, 2017****  
 https://cdn.lezhin.com/v2/comics/(comic_number)/episodes/(episode_number)/contents/scrolls/(image_number)?access_token=(token)  
-Unlike the previous, comics names and episodes are made only of numbers  
+Unlike the previous, comics names and episodes are made only of numbers.  
 The numbers seem to be randomly generated, but the names of the comics are the same for all episodes.  
 In the case of episode numbers, just because they came out more recently doesn't mean the numbers are bigger.  
 The method to find out the number of cuts of the episode is the same as the method above.  
